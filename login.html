@@ -25,7 +25,9 @@
     <div class="login-card">
 
 
-        <!-- LOGO -->
+        <!-- =========================
+             LOGO
+        ========================== -->
 
         <div class="logo-box">
 
@@ -36,7 +38,9 @@
         </div>
 
 
-        <!--BRAND-->
+        <!-- =========================
+             BRAND
+        ========================== -->
 
         <div class="brand">
 
@@ -51,13 +55,17 @@
         </div>
 
 
-        <!--LOGIN FORM -->
+        <!-- =========================
+             LOGIN FORM
+        ========================== -->
 
         <form id="loginForm"
               class="login-form">
 
 
-            <!-- USERNAME-->
+            <!-- =====================
+                 USERNAME
+            ====================== -->
 
             <div class="form-group">
 
@@ -87,7 +95,9 @@
             </div>
 
 
-            <!-- PASSWORD-->
+            <!-- =====================
+                 PASSWORD
+            ====================== -->
 
             <div class="form-group">
 
@@ -127,7 +137,9 @@
             </div>
 
 
-            <!--  ERROR MESSAGE -->
+            <!-- =====================
+                 ERROR MESSAGE
+            ====================== -->
 
             <div
                 id="loginError"
@@ -138,7 +150,9 @@
             </div>
 
 
-            <!--LOGIN BUTTON -->
+            <!-- =====================
+                 LOGIN BUTTON
+            ====================== -->
 
             <button
                 type="submit"
@@ -152,7 +166,9 @@
         </form>
 
 
-        <!--  FOOTER= -->
+        <!-- =========================
+             FOOTER
+        ========================== -->
 
         <div class="login-footer">
 
@@ -175,10 +191,14 @@
 
 <script>
 
-/*  SECURE DMS LOGIN SYSTEM */
+/* =====================================================
+   SECURE DMS LOGIN SYSTEM
+===================================================== */
 
 
-/* USER DATABASE */
+/* =====================================================
+   USER DATABASE
+===================================================== */
 
 /*
     Username and password are used for login.
@@ -194,22 +214,26 @@
 const users = {
 
 
+    /* =========================
+       KRISHNA
+    ========================== */
 
+    krishna: {
 
-    Ayush: {
-
-        username: "Ayush",
+        username: "krishna",
 
         password: "54321",
 
-        name: "Ayush",
+        name: "Krishna",
 
         role: "admin"
 
     },
 
 
-   
+    /* =========================
+       TANMAY
+    ========================== */
 
     tanmay: {
 
@@ -224,7 +248,9 @@ const users = {
     },
 
 
-  
+    /* =========================
+       VIJAY
+    ========================== */
 
     vijay: {
 
@@ -239,7 +265,9 @@ const users = {
     },
 
 
-  
+    /* =========================
+       SEJAL
+    ========================== */
 
     sejal: {
 
@@ -251,26 +279,15 @@ const users = {
 
         role: "investigator"
 
-    },
-    vibhuti: {
-        username: "Vibhuti Mishra",
-        password:"636363",
-        name:"vibhuti mishra",
-       uniqueId: "abc123",
-        role: " SDM"
-    },
-    illma :{
-    username:"illma parven",
-        password:"454545",
-        name: "illma parven",
-        role:" SI"
-}
-    
+    }
+
 };
 
 
 
-/* GET HTML ELEMENTS */
+/* =====================================================
+   GET HTML ELEMENTS
+===================================================== */
 
 const loginForm =
     document.getElementById("loginForm");
