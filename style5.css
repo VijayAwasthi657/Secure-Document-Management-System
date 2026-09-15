@@ -1,0 +1,1051 @@
+/* =========================================
+   SECURE DMS - ACCESS LOGS
+   PREMIUM CSS
+========================================= */
+
+
+/* =========================================
+   GLOBAL RESET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    font-family:
+        "Inter",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background: #f4f7fb;
+
+    color: #172033;
+
+    min-height: 100vh;
+}
+
+
+/* =========================================
+   TOPBAR
+========================================= */
+
+.topbar {
+    height: 72px;
+
+    width: 100%;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #e5eaf1;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 28px;
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    z-index: 1000;
+
+    box-shadow:
+        0 2px 12px rgba(15, 23, 42, 0.05);
+}
+
+
+/* =========================================
+   BRAND
+========================================= */
+
+.brand-section {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.logo {
+    width: 40px;
+
+    height: 40px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #173b7a,
+            #2456a6
+        );
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 21px;
+
+    box-shadow:
+        0 5px 14px rgba(36, 86, 166, 0.20);
+}
+
+
+.brand-name {
+    font-size: 20px;
+
+    font-weight: 800;
+
+    color: #16213a;
+
+    letter-spacing: -0.3px;
+}
+
+
+.mvp-badge {
+    font-size: 11px;
+
+    font-weight: 700;
+
+    color: #2456a6;
+
+    background: #eef4ff;
+
+    border: 1px solid #d8e5ff;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    margin-left: 3px;
+}
+
+
+/* =========================================
+   TOP RIGHT USER
+========================================= */
+
+.top-right {
+    display: flex;
+
+    align-items: center;
+}
+
+
+.logged-user {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 5px 8px 5px 5px;
+
+    border-radius: 12px;
+
+    transition: 0.2s ease;
+}
+
+
+.logged-user:hover {
+    background: #f5f8fc;
+}
+
+
+.user-avatar {
+    width: 40px;
+
+    height: 40px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1d4f91,
+            #3474c5
+        );
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 5px 14px rgba(29, 79, 145, 0.20);
+}
+
+
+.user-details {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+
+.user-details strong {
+    font-size: 13px;
+
+    color: #172033;
+
+    font-weight: 700;
+}
+
+
+.user-details span {
+    font-size: 11px;
+
+    color: #718096;
+
+    font-weight: 500;
+}
+
+
+/* =========================================
+   MAIN LAYOUT
+========================================= */
+
+.layout {
+    display: flex;
+
+    min-height: 100vh;
+
+    padding-top: 72px;
+}
+
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.sidebar {
+    width: 245px;
+
+    min-width: 245px;
+
+    background: #ffffff;
+
+    border-right: 1px solid #e5eaf1;
+
+    padding: 22px 14px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    position: fixed;
+
+    top: 72px;
+
+    bottom: 0;
+
+    left: 0;
+
+    overflow-y: auto;
+}
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+.sidebar nav {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+
+.nav-item {
+    text-decoration: none;
+
+    color: #5c687c;
+
+    min-height: 48px;
+
+    padding: 0 14px;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.nav-item .icon {
+    width: 24px;
+
+    text-align: center;
+
+    font-size: 17px;
+}
+
+
+.nav-item:hover {
+    background: #f2f6fc;
+
+    color: #1e4f91;
+
+    transform: translateX(2px);
+}
+
+
+.nav-item.active {
+    background:
+        linear-gradient(
+            90deg,
+            #eaf2ff,
+            #f3f7ff
+        );
+
+    color: #1d4f91;
+
+    box-shadow:
+        inset 3px 0 0 #2456a6;
+}
+
+
+.nav-item.active .icon {
+    transform: scale(1.05);
+}
+
+
+/* =========================================
+   SIDEBAR BOTTOM
+========================================= */
+
+.sidebar-bottom {
+    margin-top: 25px;
+}
+
+
+.sidebar-note {
+    background: #f7f9fc;
+
+    border: 1px solid #e7ecf3;
+
+    border-radius: 11px;
+
+    padding: 13px;
+
+    color: #718096;
+
+    font-size: 11px;
+
+    line-height: 1.6;
+
+    margin-bottom: 12px;
+}
+
+
+.sidebar-note strong {
+    color: #31415d;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   LOGOUT BUTTON
+========================================= */
+
+.logout-sidebar {
+    width: 100%;
+
+    border: 1px solid #f0d7d7;
+
+    background: #fff8f8;
+
+    color: #c24141;
+
+    min-height: 45px;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    transition: 0.2s ease;
+}
+
+
+.logout-sidebar:hover {
+    background: #fff0f0;
+
+    border-color: #eab5b5;
+
+    color: #ae3030;
+
+    transform: translateY(-1px);
+}
+
+
+.logout-sidebar:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================
+   MAIN CONTENT
+========================================= */
+
+.content {
+    margin-left: 245px;
+
+    width: calc(100% - 245px);
+
+    padding: 34px;
+
+    min-height: calc(100vh - 72px);
+}
+
+
+/* =========================================
+   PAGE TITLE
+========================================= */
+
+.page-title {
+    margin-bottom: 24px;
+}
+
+
+.page-title h1 {
+    font-size: 28px;
+
+    line-height: 1.2;
+
+    color: #172033;
+
+    font-weight: 800;
+
+    letter-spacing: -0.6px;
+
+    margin-bottom: 7px;
+}
+
+
+.page-title p {
+    color: #718096;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   LOG INFO BOX
+========================================= */
+
+.log-info {
+    width: 100%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f0f6ff,
+            #f8fbff
+        );
+
+    border: 1px solid #dce9fb;
+
+    border-radius: 13px;
+
+    padding: 17px 19px;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 14px;
+
+    margin-bottom: 22px;
+
+    box-shadow:
+        0 5px 16px rgba(37, 86, 166, 0.04);
+}
+
+
+.info-icon {
+    width: 39px;
+
+    height: 39px;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    border: 1px solid #dce8f8;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 18px;
+
+    box-shadow:
+        0 3px 8px rgba(15, 23, 42, 0.04);
+}
+
+
+.log-info strong {
+    display: block;
+
+    color: #244c83;
+
+    font-size: 14px;
+
+    margin-bottom: 4px;
+}
+
+
+.log-info p {
+    color: #65748b;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   CONTENT CARD
+========================================= */
+
+.content-card {
+    background: #ffffff;
+
+    border: 1px solid #e5eaf1;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 7px 24px rgba(15, 23, 42, 0.05);
+}
+
+
+/* =========================================
+   TABLE WRAPPER
+========================================= */
+
+.table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+
+/* =========================================
+   TABLE
+========================================= */
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 720px;
+}
+
+
+/* =========================================
+   TABLE HEADER
+========================================= */
+
+thead {
+    background: #f8fafc;
+}
+
+
+th {
+    padding: 15px 18px;
+
+    text-align: left;
+
+    color: #59677c;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.6px;
+
+    border-bottom: 1px solid #e5eaf1;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   TABLE BODY
+========================================= */
+
+td {
+    padding: 16px 18px;
+
+    color: #39465a;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    border-bottom: 1px solid #edf0f4;
+
+    vertical-align: middle;
+}
+
+
+tbody tr {
+    transition: background 0.2s ease;
+}
+
+
+tbody tr:hover {
+    background: #f9fbfe;
+}
+
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================
+   LOG ACTION
+========================================= */
+
+td:nth-child(2) {
+    font-weight: 700;
+
+    color: #33445c;
+}
+
+
+/* =========================================
+   DOCUMENT NAME
+========================================= */
+
+td:nth-child(3) {
+    color: #2456a6;
+
+    font-weight: 600;
+}
+
+
+/* =========================================
+   STATUS BADGES
+========================================= */
+
+.log-status {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 78px;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    border: 1px solid transparent;
+
+    white-space: nowrap;
+}
+
+
+/* Uploaded */
+
+.log-status.uploaded {
+    background: #eefbf3;
+
+    color: #21864a;
+
+    border-color: #ccefd9;
+}
+
+
+/* Viewed */
+
+.log-status.viewed {
+    background: #eef5ff;
+
+    color: #2861a4;
+
+    border-color: #d3e3fb;
+}
+
+
+/* Downloaded */
+
+.log-status.downloaded {
+    background: #f4efff;
+
+    color: #6942a3;
+
+    border-color: #e4d8fa;
+}
+
+
+/* Deleted */
+
+.log-status.denied {
+    background: #fff1f1;
+
+    color: #c33b3b;
+
+    border-color: #f2cccc;
+}
+
+
+/* Login / General */
+
+.log-status.logged {
+    background: #f1f5f9;
+
+    color: #526174;
+
+    border-color: #dfe6ee;
+}
+
+
+/* =========================================
+   EMPTY / LOADING TABLE
+========================================= */
+
+tbody td[colspan] {
+    text-align: center;
+
+    padding: 45px 20px;
+
+    color: #8793a5;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+.sidebar::-webkit-scrollbar,
+.table-wrapper::-webkit-scrollbar {
+    width: 7px;
+
+    height: 7px;
+}
+
+
+.sidebar::-webkit-scrollbar-track,
+.table-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+
+.sidebar::-webkit-scrollbar-thumb,
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+
+    border-radius: 20px;
+}
+
+
+.sidebar::-webkit-scrollbar-thumb:hover,
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #aeb9c8;
+}
+
+
+/* =========================================
+   RESPONSIVE - TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        width: 210px;
+
+        min-width: 210px;
+    }
+
+
+    .content {
+        margin-left: 210px;
+
+        width: calc(100% - 210px);
+
+        padding: 25px;
+    }
+
+
+    .brand-name {
+        font-size: 18px;
+    }
+
+
+    .mvp-badge {
+        display: none;
+    }
+
+}
+
+
+/* =========================================
+   RESPONSIVE - MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .topbar {
+        height: 64px;
+
+        padding: 0 15px;
+    }
+
+
+    .layout {
+        padding-top: 64px;
+    }
+
+
+    .sidebar {
+        position: fixed;
+
+        top: 64px;
+
+        width: 72px;
+
+        min-width: 72px;
+
+        padding: 18px 8px;
+
+        z-index: 900;
+    }
+
+
+    .nav-item {
+        justify-content: center;
+
+        padding: 0;
+
+        min-height: 46px;
+    }
+
+
+    .nav-item span:not(.icon) {
+        display: none;
+    }
+
+
+    .nav-item .icon {
+        font-size: 18px;
+
+        width: auto;
+    }
+
+
+    .sidebar-note {
+        display: none;
+    }
+
+
+    .logout-sidebar {
+        font-size: 0;
+
+        padding: 0;
+
+        min-height: 46px;
+    }
+
+
+    .logout-sidebar span {
+        font-size: 18px;
+    }
+
+
+    .content {
+        margin-left: 72px;
+
+        width: calc(100% - 72px);
+
+        padding: 22px 16px;
+    }
+
+
+    .brand-name {
+        font-size: 17px;
+    }
+
+
+    .logo {
+        width: 36px;
+
+        height: 36px;
+    }
+
+
+    .user-details {
+        display: none;
+    }
+
+
+    .user-avatar {
+        width: 36px;
+
+        height: 36px;
+    }
+
+
+    .page-title h1 {
+        font-size: 24px;
+    }
+
+
+    .log-info {
+        padding: 14px;
+    }
+
+
+    .info-icon {
+        width: 35px;
+
+        height: 35px;
+    }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 450px) {
+
+    .topbar {
+        padding: 0 10px;
+    }
+
+
+    .brand-section {
+        gap: 8px;
+    }
+
+
+    .brand-name {
+        font-size: 15px;
+    }
+
+
+    .logo {
+        width: 34px;
+
+        height: 34px;
+
+        font-size: 17px;
+    }
+
+
+    .content {
+        padding: 20px 12px;
+    }
+
+
+    .page-title {
+        margin-bottom: 18px;
+    }
+
+
+    .page-title h1 {
+        font-size: 22px;
+    }
+
+
+    .page-title p {
+        font-size: 12px;
+    }
+
+
+    .log-info {
+        gap: 10px;
+
+        padding: 12px;
+    }
+
+
+    .log-info strong {
+        font-size: 12px;
+    }
+
+
+    .log-info p {
+        font-size: 11px;
+    }
+
+}

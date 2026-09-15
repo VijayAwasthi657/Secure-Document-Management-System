@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Secure DMS - Access Logs</title>
+
+    <link rel="stylesheet" href="style5.css">
+
+</head>
+
+
+<body>
+
+
+<header class="topbar">
+
+    <div class="brand-section">
+
+        <div class="logo">
+            🛡️
+        </div>
+
+        <div class="brand-name">
+            Secure DMS
+        </div>
+
+        <div class="mvp-badge">
+            SIH 26190 · MVP
+        </div>
+
+    </div>
+
+
+    <div class="top-right">
+
+        <div class="logged-user">
+
+            <div class="user-avatar"
+                 id="userAvatar">
+                U
+            </div>
+
+            <div class="user-details">
+
+                <strong id="topUserName">
+                    User
+                </strong>
+
+                <span id="topUserRole">
+                    User
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<div class="layout">
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <nav>
+
+            <a href="index1.html"
+               class="nav-item">
+
+                <span class="icon">🏠</span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a href="index2.html"
+               class="nav-item">
+
+                <span class="icon">📄</span>
+
+                <span>
+                    Documents
+                </span>
+
+            </a>
+
+
+            <a href="index3.html"
+               class="nav-item">
+
+                <span class="icon">⬆️</span>
+
+                <span>
+                    Upload Document
+                </span>
+
+            </a>
+
+
+            <a href="index5.html"
+               class="nav-item active">
+
+                <span class="icon">🔐</span>
+
+                <span>
+                    Access Logs
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <!-- ================= SIDEBAR BOTTOM ================= -->
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-note">
+
+                <strong>
+                    Secure DMS
+                </strong>
+
+                <br>
+
+                Activity logs are automatically
+                deleted after 30 days.
+
+            </div>
+
+
+            <button class="logout-sidebar"
+                    onclick="logout()">
+
+                <span>🚪</span>
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="content">
+
+
+        <div class="page-title">
+
+            <h1>
+                Access Logs
+            </h1>
+
+            <p>
+                View your document and account activity.
+            </p>
+
+        </div>
+
+
+
+        <!-- ================= 30 DAY INFO ================= -->
+
+        <div class="log-info">
+
+            <div class="info-icon">
+                🔐
+            </div>
+
+            <div>
+
+                <strong>
+                    30-Day Audit Retention
+                </strong>
+
+                <p>
+                    Your activity records are stored
+                    for 30 days and automatically
+                    deleted after that period.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= LOG TABLE ================= -->
+
+        <div class="content-card">
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                User
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                            <th>
+                                Document
+                            </th>
+
+                            <th>
+                                Date &amp; Time
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="logsBody">
+
+                        <tr>
+
+                            <td colspan="5">
+
+                                Loading logs...
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   SECURE DMS - ACCESS LOGS
+   FINAL VERSION
+   ========================================================= */
+
+
+/* =========================================================
+   DATABASE
+   ========================================================= */
+
+const DB_NAME = "SecureDMS";
+
+const DB_VERSION = 2;
+
+const LOG_STORE = "accessLogs";
+
+
+/* =========================================================
+   CURRENT USER
+   ========================================================= */
+
+let loggedInUser = null;
+
+const storedUser =
+    sessionStorage.getItem("loggedInUser");
+
+
+if (!storedUser) {
+
+    window.location.href = "login.html";
+
+}
+else {
+
+    try {
+
+        loggedInUser =
+            JSON.parse(storedUser);
+
+    }
+    catch (error) {
+
+        console.error(
+            "Invalid user session:",
+            error
+        );
+
+        sessionStorage.clear();
+
+        window.location.href =
+            "login.html";
+
+    }
+
+}
+
+
+/* =========================================================
+   USER INFORMATION
+   ========================================================= */
+
+const currentUsername =
+    loggedInUser?.username || "";
+
+const currentName =
+    loggedInUser?.name ||
+    loggedInUser?.username ||
+    "User";
+
+const currentRole =
+    loggedInUser?.role ||
+    "user";
+
+
+/* =========================================================
+   ROLE NAMES
+   ========================================================= */
+
+const roleNames = {
+
+    admin:
+        "Administrator",
+
+    forensic_team:
+        "Forensic Team",
+
+    police_staff:
+        "Police Staff",
+
+    investigator:
+        "Investigator"
+
+};
+
+
+/* =========================================================
+   SHOW USER
+   ========================================================= */
+
+const topUserName =
+    document.getElementById(
+        "topUserName"
+    );
+
+
+if (topUserName) {
+
+    topUserName.textContent =
+        currentName;
+
+}
+
+
+const userAvatar =
+    document.getElementById(
+        "userAvatar"
+    );
+
+
+if (userAvatar) {
+
+    userAvatar.textContent =
+        currentName
+            .charAt(0)
+            .toUpperCase();
+
+}
+
+
+const topUserRole =
+    document.getElementById(
+        "topUserRole"
+    );
+
+
+if (topUserRole) {
+
+    topUserRole.textContent =
+        roleNames[currentRole] ||
+        "User";
+
+}
+
+
+/* =========================================================
+   OPEN DATABASE
+   ========================================================= */
+
+function openDatabase() {
+
+    return new Promise(
+        function(resolve, reject) {
+
+            const request =
+                indexedDB.open(
+                    DB_NAME,
+                    DB_VERSION
+                );
+
+
+            request.onupgradeneeded =
+                function(event) {
+
+                    const db =
+                        event.target.result;
+
+
+                    const transaction =
+                        event.target.transaction;
+
+
+                    /* =========================
+                       CREATE LOG STORE
+                       ========================= */
+
+                    if (
+                        !db.objectStoreNames.contains(
+                            LOG_STORE
+                        )
+                    ) {
+
+                        const logStore =
+                            db.createObjectStore(
+                                LOG_STORE,
+                                {
+                                    keyPath: "id",
+                                    autoIncrement: true
+                                }
+                            );
+
+
+                        logStore.createIndex(
+                            "username",
+                            "username",
+                            {
+                                unique: false
+                            }
+                        );
+
+
+                        logStore.createIndex(
+                            "time",
+                            "time",
+                            {
+                                unique: false
+                            }
+                        );
+
+
+                        logStore.createIndex(
+                            "timestamp",
+                            "timestamp",
+                            {
+                                unique: false
+                            }
+                        );
+
+
+                        logStore.createIndex(
+                            "expiresAt",
+                            "expiresAt",
+                            {
+                                unique: false
+                            }
+                        );
+
+                    }
+                    else {
+
+                        /*
+                         * Existing version-2 database.
+                         * Add missing indexes safely.
+                         */
+
+                        const logStore =
+                            transaction.objectStore(
+                                LOG_STORE
+                            );
+
+
+                        if (
+                            !logStore.indexNames.contains(
+                                "username"
+                            )
+                        ) {
+
+                            logStore.createIndex(
+                                "username",
+                                "username",
+                                {
+                                    unique: false
+                                }
+                            );
+
+                        }
+
+
+                        if (
+                            !logStore.indexNames.contains(
+                                "time"
+                            )
+                        ) {
+
+                            logStore.createIndex(
+                                "time",
+                                "time",
+                                {
+                                    unique: false
+                                }
+                            );
+
+                        }
+
+
+                        if (
+                            !logStore.indexNames.contains(
+                                "timestamp"
+                            )
+                        ) {
+
+                            logStore.createIndex(
+                                "timestamp",
+                                "timestamp",
+                                {
+                                    unique: false
+                                }
+                            );
+
+                        }
+
+
+                        if (
+                            !logStore.indexNames.contains(
+                                "expiresAt"
+                            )
+                        ) {
+
+                            logStore.createIndex(
+                                "expiresAt",
+                                "expiresAt",
+                                {
+                                    unique: false
+                                }
+                            );
+
+                        }
+
+                    }
+
+                };
+
+
+            request.onsuccess =
+                function(event) {
+
+                    resolve(
+                        event.target.result
+                    );
+
+                };
+
+
+            request.onerror =
+                function(event) {
+
+                    console.error(
+                        "IndexedDB Error:",
+                        event.target.error
+                    );
+
+                    reject(
+                        event.target.error
+                    );
+
+                };
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CLEAN OLD LOGS
+   ========================================================= */
+
+async function cleanupExpiredLogs() {
+
+    try {
+
+        const db =
+            await openDatabase();
+
+
+        const transaction =
+            db.transaction(
+                LOG_STORE,
+                "readwrite"
+            );
+
+
+        const store =
+            transaction.objectStore(
+                LOG_STORE
+            );
+
+
+        const request =
+            store.getAll();
+
+
+        request.onsuccess =
+            function(event) {
+
+                const logs =
+                    event.target.result || [];
+
+
+                const now =
+                    Date.now();
+
+
+                logs.forEach(
+                    function(log) {
+
+                        let expiry =
+                            log.expiresAt;
+
+
+                        /*
+                         * If no expiry is stored,
+                         * use log time + 30 days.
+                         */
+
+                        if (!expiry) {
+
+                            const logTime =
+                                log.time ||
+                                log.timestamp;
+
+
+                            if (logTime) {
+
+                                expiry =
+                                    new Date(
+                                        logTime
+                                    ).getTime()
+                                    +
+                                    (
+                                        30 *
+                                        24 *
+                                        60 *
+                                        60 *
+                                        1000
+                                    );
+
+                            }
+
+                        }
+
+
+                        if (expiry) {
+
+                            const expiryTime =
+                                new Date(
+                                    expiry
+                                ).getTime();
+
+
+                            if (
+                                expiryTime <= now
+                            ) {
+
+                                store.delete(
+                                    log.id
+                                );
+
+                            }
+
+                        }
+
+                    }
+                );
+
+            };
+
+    }
+    catch (error) {
+
+        console.error(
+            "Log cleanup error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   GET LOG TIME
+   ========================================================= */
+
+function getLogTime(log) {
+
+    /*
+     * Support both:
+     * time
+     * timestamp
+     */
+
+    return (
+        log.time ||
+        log.timestamp ||
+        null
+    );
+
+}
+
+
+/* =========================================================
+   LOAD ACCESS LOGS
+   ========================================================= */
+
+async function loadAccessLogs() {
+
+    const body =
+        document.getElementById(
+            "logsBody"
+        );
+
+
+    if (!body) {
+        return;
+    }
+
+
+    try {
+
+        /*
+         * First clean old logs.
+         */
+
+        await cleanupExpiredLogs();
+
+
+        const db =
+            await openDatabase();
+
+
+        const transaction =
+            db.transaction(
+                LOG_STORE,
+                "readonly"
+            );
+
+
+        const store =
+            transaction.objectStore(
+                LOG_STORE
+            );
+
+
+        const request =
+            store.getAll();
+
+
+        request.onsuccess =
+            function(event) {
+
+                const allLogs =
+                    event.target.result || [];
+
+
+                console.log(
+                    "Secure DMS - All Access Logs:",
+                    allLogs
+                );
+
+
+                console.log(
+                    "Secure DMS - Current User:",
+                    loggedInUser
+                );
+
+
+                /* =====================================
+                   CURRENT USER FILTER
+                   ===================================== */
+
+                const myLogs =
+                    allLogs.filter(
+                        function(log) {
+
+                            /*
+                             * Primary:
+                             * username
+                             */
+
+                            if (
+                                log.username !==
+                                undefined &&
+                                log.username !==
+                                null
+                            ) {
+
+                                return (
+                                    String(
+                                        log.username
+                                    ).toLowerCase()
+                                    ===
+                                    String(
+                                        currentUsername
+                                    ).toLowerCase()
+                                );
+
+                            }
+
+
+                            /*
+                             * Compatibility:
+                             * userName
+                             */
+
+                            if (
+                                log.userName
+                            ) {
+
+                                return (
+                                    String(
+                                        log.userName
+                                    ).toLowerCase()
+                                    ===
+                                    String(
+                                        currentName
+                                    ).toLowerCase()
+                                );
+
+                            }
+
+
+                            return false;
+
+                        }
+                    );
+
+
+                console.log(
+                    "Secure DMS - My Logs:",
+                    myLogs
+                );
+
+
+                /* =====================================
+                   SORT NEWEST FIRST
+                   ===================================== */
+
+                myLogs.sort(
+                    function(a, b) {
+
+                        const dateA =
+                            new Date(
+                                getLogTime(a) || 0
+                            ).getTime();
+
+
+                        const dateB =
+                            new Date(
+                                getLogTime(b) || 0
+                            ).getTime();
+
+
+                        return dateB - dateA;
+
+                    }
+                );
+
+
+                /* =====================================
+                   NO LOGS
+                   ===================================== */
+
+                if (
+                    myLogs.length === 0
+                ) {
+
+                    body.innerHTML = `
+
+                        <tr>
+
+                            <td colspan="5"
+                                style="
+                                    text-align:center;
+                                    padding:30px;
+                                ">
+
+                                <div style="
+                                    font-size:30px;
+                                    margin-bottom:8px;
+                                ">
+                                    🔐
+                                </div>
+
+
+                                <strong>
+                                    No activity logs found.
+                                </strong>
+
+
+                                <div style="
+                                    margin-top:6px;
+                                    opacity:.7;
+                                ">
+                                    Your document activity
+                                    will appear here.
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                /* =====================================
+                   CREATE TABLE
+                   ===================================== */
+
+                body.innerHTML =
+                    myLogs.map(
+                        function(log) {
+
+                            const action =
+                                log.action ||
+                                "Activity";
+
+
+                            const documentName =
+                                log.document ||
+                                log.fileName ||
+                                log.documentName ||
+                                "System";
+
+
+                            const userName =
+                                log.userName ||
+                                log.name ||
+                                currentName;
+
+
+                            const logTime =
+                                getLogTime(log);
+
+
+                            let formattedDate =
+                                "-";
+
+
+                            if (logTime) {
+
+                                const date =
+                                    new Date(
+                                        logTime
+                                    );
+
+
+                                if (
+                                    !isNaN(
+                                        date.getTime()
+                                    )
+                                ) {
+
+                                    formattedDate =
+                                        date.toLocaleString(
+                                            "en-IN",
+                                            {
+                                                day: "2-digit",
+                                                month: "short",
+                                                year: "numeric",
+                                                hour: "2-digit",
+                                                minute: "2-digit",
+                                                second: "2-digit"
+                                            }
+                                        );
+
+                                }
+
+                            }
+
+
+                            /* =====================
+                               STATUS
+                               ===================== */
+
+                            let statusClass =
+                                "logged";
+
+
+                            let statusText =
+                                "Recorded";
+
+
+                            if (
+                                action ===
+                                "Uploaded"
+                            ) {
+
+                                statusClass =
+                                    "uploaded";
+
+                                statusText =
+                                    "Uploaded";
+
+                            }
+
+
+                            else if (
+                                action ===
+                                "Viewed"
+                            ) {
+
+                                statusClass =
+                                    "viewed";
+
+                                statusText =
+                                    "Viewed";
+
+                            }
+
+
+                            else if (
+                                action ===
+                                "Downloaded"
+                            ) {
+
+                                statusClass =
+                                    "downloaded";
+
+                                statusText =
+                                    "Downloaded";
+
+                            }
+
+
+                            else if (
+                                action ===
+                                "Deleted"
+                            ) {
+
+                                statusClass =
+                                    "denied";
+
+                                statusText =
+                                    "Deleted";
+
+                            }
+
+
+                            else if (
+                                action ===
+                                "Logged In" ||
+                                action ===
+                                "Login"
+                            ) {
+
+                                statusClass =
+                                    "logged";
+
+                                statusText =
+                                    "Login";
+
+                            }
+
+
+                            else if (
+                                action ===
+                                "Logged Out" ||
+                                action ===
+                                "Logout"
+                            ) {
+
+                                statusClass =
+                                    "logged";
+
+                                statusText =
+                                    "Logout";
+
+                            }
+
+
+                            return `
+
+                                <tr>
+
+                                    <td>
+                                        ${escapeHTML(
+                                            userName
+                                        )}
+                                    </td>
+
+
+                                    <td>
+                                        ${escapeHTML(
+                                            action
+                                        )}
+                                    </td>
+
+
+                                    <td>
+                                        ${escapeHTML(
+                                            documentName
+                                        )}
+                                    </td>
+
+
+                                    <td>
+                                        ${escapeHTML(
+                                            formattedDate
+                                        )}
+                                    </td>
+
+
+                                    <td>
+
+                                        <span
+                                            class="log-status ${statusClass}"
+                                        >
+
+                                            ${escapeHTML(
+                                                statusText
+                                            )}
+
+                                        </span>
+
+                                    </td>
+
+                                </tr>
+
+                            `;
+
+                        }
+                    ).join("");
+
+            };
+
+
+        request.onerror =
+            function(event) {
+
+                console.error(
+                    "Unable to load logs:",
+                    event.target.error
+                );
+
+
+                body.innerHTML = `
+
+                    <tr>
+
+                        <td colspan="5"
+                            style="
+                                text-align:center;
+                                padding:30px;
+                            ">
+
+                            Unable to load access logs.
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            };
+
+    }
+    catch (error) {
+
+        console.error(
+            "Access Logs Database Error:",
+            error
+        );
+
+
+        body.innerHTML = `
+
+            <tr>
+
+                <td colspan="5"
+                    style="
+                        text-align:center;
+                        padding:30px;
+                    ">
+
+                    Unable to connect to
+                    access log storage.
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+function logout() {
+
+    sessionStorage.removeItem(
+        "loggedInUser"
+    );
+
+    sessionStorage.removeItem(
+        "username"
+    );
+
+    sessionStorage.removeItem(
+        "loggedInName"
+    );
+
+    sessionStorage.removeItem(
+        "loggedInRole"
+    );
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+if (loggedInUser) {
+
+    loadAccessLogs();
+
+}
+
+</script>
+
+
+</body>
+
+</html>

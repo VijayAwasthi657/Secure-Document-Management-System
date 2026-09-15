@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Secure DMS - Dashboard</title>
+
+    <link rel="stylesheet" href="style1.css">
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-icon">🔐</div>
+
+            <div>
+                <h2>Secure DMS</h2>
+                <span>SIH 26190 • MVP</span>
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="index.html" class="nav-item active">
+                <span class="nav-icon">📊</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="index2.html" class="nav-item">
+                <span class="nav-icon">📁</span>
+                <span>Documents</span>
+            </a>
+
+            <a href="index3.html" class="nav-item">
+                <span class="nav-icon">⬆️</span>
+                <span>Upload Document</span>
+            </a>
+
+            <a href="index5.html" class="nav-item">
+                <span class="nav-icon">🛡️</span>
+                <span>Access Logs</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="demo-note">
+
+                <strong>Secure Access</strong>
+
+                <p>
+                    Documents are protected using
+                    role-based access control.
+                </p>
+
+            </div>
+
+
+            <button class="logout-btn" onclick="logout()">
+
+                <span>🚪</span>
+                <span>Logout</span>
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+
+        <!-- ================= TOP BAR ================= -->
+
+        <header class="topbar">
+
+            <div class="mobile-title">
+                Secure DMS
+            </div>
+
+
+            <div class="topbar-right">
+
+                <div class="security-status">
+
+                    <span class="status-dot"></span>
+
+                    System Secure
+
+                </div>
+
+
+                <div class="user-section">
+
+                    <div class="user-avatar" id="userAvatar">
+                        U
+                    </div>
+
+
+                    <div class="user-info">
+
+                        <strong id="topUserName">
+                            User
+                        </strong>
+
+                        <span id="topUserRole">
+                            User
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <section class="dashboard-page">
+
+
+            <div class="page-heading">
+
+                <div>
+
+                    <h1>
+                        Dashboard
+                    </h1>
+
+                    <p>
+                        Welcome,
+                        <strong id="welcomeUserName">
+                            User
+                        </strong>.
+                        Here's the current secure document overview.
+                    </p>
+
+                </div>
+
+
+                <div class="date-box">
+
+                    <span>📅</span>
+
+                    <span id="currentDate"></span>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= STATS ================= -->
+
+            <div class="stats-grid">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+                        📄
+                    </div>
+
+                    <div class="stat-content">
+
+                        <span class="stat-label">
+                            Total Documents
+                        </span>
+
+                        <h2 id="totalDocuments">
+                            0
+                        </h2>
+
+                        <p class="positive">
+                            Your uploaded documents
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">
+                        🔒
+                    </div>
+
+                    <div class="stat-content">
+
+                        <span class="stat-label">
+                            Protected
+                        </span>
+
+                        <h2>
+                            100%
+                        </h2>
+
+                        <p class="positive">
+                            All documents secured
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon purple">
+                        👥
+                    </div>
+
+                    <div class="stat-content">
+
+                        <span class="stat-label">
+                            Active Users
+                        </span>
+
+                        <h2>
+                            4
+                        </h2>
+
+                        <p class="positive">
+                            All accounts active
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon red">
+                        ⚠️
+                    </div>
+
+                    <div class="stat-content">
+
+                        <span class="stat-label">
+                            Security Alerts
+                        </span>
+
+                        <h2>
+                            0
+                        </h2>
+
+                        <p class="positive">
+                            No active alerts
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= CONTENT GRID ================= -->
+
+            <div class="dashboard-grid">
+
+
+                <!-- ================= RECENT DOCUMENTS ================= -->
+
+                <div class="dashboard-card documents-card">
+
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Recent Documents
+                            </h3>
+
+                            <p>
+                                Latest documents added to your account
+                            </p>
+
+                        </div>
+
+
+                        <a href="index2.html" class="view-all">
+                            View All →
+                        </a>
+
+                    </div>
+
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Document
+                                    </th>
+
+                                    <th>
+                                        Uploaded By
+                                    </th>
+
+                                    <th>
+                                        Type
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="recentDocumentsBody">
+
+                                <tr>
+
+                                    <td colspan="4"
+                                        style="text-align:center; padding:30px;">
+
+                                        Loading documents...
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= QUICK ACTIONS ================= -->
+
+                <div class="dashboard-card">
+
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Quick Actions
+                            </h3>
+
+                            <p>
+                                Common document management tasks
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="quick-actions">
+
+
+                        <a href="index3.html"
+                           class="quick-action">
+
+                            <div class="quick-icon blue">
+                                ⬆️
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Upload Document
+                                </strong>
+
+                                <span>
+                                    Add a new secure document
+                                </span>
+
+                            </div>
+
+                            <span class="arrow">
+                                →
+                            </span>
+
+                        </a>
+
+
+                        <a href="index2.html"
+                           class="quick-action">
+
+                            <div class="quick-icon green">
+                                📁
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Browse Documents
+                                </strong>
+
+                                <span>
+                                    Search and manage documents
+                                </span>
+
+                            </div>
+
+                            <span class="arrow">
+                                →
+                            </span>
+
+                        </a>
+
+
+                        <a href="index5.html"
+                           class="quick-action">
+
+                            <div class="quick-icon orange">
+                                🛡️
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Access Logs
+                                </strong>
+
+                                <span>
+                                    Monitor system activity
+                                </span>
+
+                            </div>
+
+                            <span class="arrow">
+                                →
+                            </span>
+
+                        </a>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SECURITY ================= -->
+
+            <div class="bottom-grid">
+
+                <div class="dashboard-card security-card">
+
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Security Overview
+                            </h3>
+
+                            <p>
+                                Current system security status
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="security-items">
+
+
+                        <div class="security-item">
+
+                            <div class="security-left">
+
+                                <span class="security-check">
+                                    ✓
+                                </span>
+
+                                <div>
+
+                                    <strong>
+                                        Document Encryption
+                                    </strong>
+
+                                    <span>
+                                        Enabled
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <span class="security-active">
+                                Active
+                            </span>
+
+                        </div>
+
+
+                        <div class="security-item">
+
+                            <div class="security-left">
+
+                                <span class="security-check">
+                                    ✓
+                                </span>
+
+                                <div>
+
+                                    <strong>
+                                        Role Based Access
+                                    </strong>
+
+                                    <span>
+                                        Enabled
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <span class="security-active">
+                                Active
+                            </span>
+
+                        </div>
+
+
+                        <div class="security-item">
+
+                            <div class="security-left">
+
+                                <span class="security-check">
+                                    ✓
+                                </span>
+
+                                <div>
+
+                                    <strong>
+                                        Audit Logging
+                                    </strong>
+
+                                    <span>
+                                        Enabled
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <span class="security-active">
+                                Active
+                            </span>
+
+                        </div>
+
+
+                        <div class="security-item">
+
+                            <div class="security-left">
+
+                                <span class="security-check">
+                                    ✓
+                                </span>
+
+                                <div>
+
+                                    <strong>
+                                        Document Storage
+                                    </strong>
+
+                                    <span>
+                                        IndexedDB Secure Storage
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <span class="security-active">
+                                Active
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ================= TOAST ================= -->
+
+<div id="toast" class="toast">
+
+    <span id="toastMessage">
+        Action completed successfully.
+    </span>
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   SECURE DMS DASHBOARD
+   FINAL FIXED VERSION
+   ========================================================= */
+
+
+/* =========================================================
+   DATABASE SETTINGS
+   ========================================================= */
+
+const DB_NAME = "SecureDMS";
+
+/*
+   IMPORTANT:
+   Version 2 is required because upload.js
+   also uses version 2.
+*/
+
+const DB_VERSION = 2;
+
+const DOCUMENT_STORE = "documents";
+const LOG_STORE = "accessLogs";
+
+
+/* =========================================================
+   LOGIN CHECK
+   ========================================================= */
+
+const storedUser =
+    sessionStorage.getItem("loggedInUser");
+
+
+if (!storedUser) {
+
+    window.location.href = "login.html";
+
+}
+
+
+/* =========================================================
+   CURRENT USER
+   ========================================================= */
+
+let loggedInUser = null;
+
+
+try {
+
+    loggedInUser =
+        JSON.parse(storedUser);
+
+}
+catch (error) {
+
+    console.error(
+        "Invalid login session:",
+        error
+    );
+
+    sessionStorage.clear();
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* =========================================================
+   USER INFORMATION
+   ========================================================= */
+
+const currentUsername =
+    loggedInUser?.username || "";
+
+const currentName =
+    loggedInUser?.name ||
+    loggedInUser?.username ||
+    "User";
+
+const currentRole =
+    loggedInUser?.role ||
+    "user";
+
+
+/* =========================================================
+   ROLE NAMES
+   ========================================================= */
+
+const roleNames = {
+
+    admin:
+        "Administrator",
+
+    forensic_team:
+        "Forensic Team",
+
+    police_staff:
+        "Police Staff",
+
+    investigator:
+        "Investigator"
+
+};
+
+
+/* =========================================================
+   DISPLAY USER
+   ========================================================= */
+
+const topUserName =
+    document.getElementById(
+        "topUserName"
+    );
+
+
+if (topUserName) {
+
+    topUserName.textContent =
+        currentName;
+
+}
+
+
+const welcomeUserName =
+    document.getElementById(
+        "welcomeUserName"
+    );
+
+
+if (welcomeUserName) {
+
+    welcomeUserName.textContent =
+        currentName;
+
+}
+
+
+const topUserRole =
+    document.getElementById(
+        "topUserRole"
+    );
+
+
+if (topUserRole) {
+
+    topUserRole.textContent =
+        roleNames[currentRole] ||
+        "User";
+
+}
+
+
+const userAvatar =
+    document.getElementById(
+        "userAvatar"
+    );
+
+
+if (userAvatar) {
+
+    userAvatar.textContent =
+        currentName
+            .charAt(0)
+            .toUpperCase();
+
+}
+
+
+/* =========================================================
+   CURRENT DATE
+   ========================================================= */
+
+const dateElement =
+    document.getElementById(
+        "currentDate"
+    );
+
+
+if (dateElement) {
+
+    dateElement.textContent =
+        new Date().toLocaleDateString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }
+        );
+
+}
+
+
+/* =========================================================
+   OPEN DATABASE
+   ========================================================= */
+
+function openDatabase() {
+
+    return new Promise(
+        function(resolve, reject) {
+
+            const request =
+                indexedDB.open(
+                    DB_NAME,
+                    DB_VERSION
+                );
+
+
+            /* =========================
+               DATABASE UPGRADE
+               ========================= */
+
+            request.onupgradeneeded =
+                function(event) {
+
+                    const db =
+                        event.target.result;
+
+                    const transaction =
+                        event.target.transaction;
+
+
+                    /* =====================
+                       DOCUMENT STORE
+                       ===================== */
+
+                    let documentStore;
+
+
+                    if (
+                        !db.objectStoreNames.contains(
+                            DOCUMENT_STORE
+                        )
+                    ) {
+
+                        documentStore =
+                            db.createObjectStore(
+                                DOCUMENT_STORE,
+                                {
+                                    keyPath: "id",
+                                    autoIncrement: true
+                                }
+                            );
+
+                    }
+                    else {
+
+                        documentStore =
+                            transaction.objectStore(
+                                DOCUMENT_STORE
+                            );
+
+                    }
+
+
+                    /* =====================
+                       DOCUMENT INDEXES
+                       ===================== */
+
+                    if (
+                        !documentStore.indexNames.contains(
+                            "uploadedByUsername"
+                        )
+                    ) {
+
+                        documentStore.createIndex(
+                            "uploadedByUsername",
+                            "uploadedByUsername",
+                            {
+                                unique: false
+                            }
+                        );
+
+                    }
+
+
+                    if (
+                        !documentStore.indexNames.contains(
+                            "uploadedBy"
+                        )
+                    ) {
+
+                        documentStore.createIndex(
+                            "uploadedBy",
+                            "uploadedBy",
+                            {
+                                unique: false
+                            }
+                        );
+
+                    }
+
+
+                    if (
+                        !documentStore.indexNames.contains(
+                            "uploadDate"
+                        )
+                    ) {
+
+                        documentStore.createIndex(
+                            "uploadDate",
+                            "uploadDate",
+                            {
+                                unique: false
+                            }
+                        );
+
+                    }
+
+
+                    if (
+                        !documentStore.indexNames.contains(
+                            "category"
+                        )
+                    ) {
+
+                        documentStore.createIndex(
+                            "category",
+                            "category",
+                            {
+                                unique: false
+                            }
+                        );
+
+                    }
+
+
+                    /* =====================
+                       ACCESS LOG STORE
+                       ===================== */
+
+                    if (
+                        !db.objectStoreNames.contains(
+                            LOG_STORE
+                        )
+                    ) {
+
+                        const logStore =
+                            db.createObjectStore(
+                                LOG_STORE,
+                                {
+                                    keyPath: "id",
+                                    autoIncrement: true
+                                }
+                            );
+
+
+                        logStore.createIndex(
+                            "username",
+                            "username",
+                            {
+                                unique: false
+                            }
+                        );
+
+
+                        logStore.createIndex(
+                            "timestamp",
+                            "timestamp",
+                            {
+                                unique: false
+                            }
+                        );
+
+                    }
+
+                };
+
+
+            /* =========================
+               DATABASE OPEN SUCCESS
+               ========================= */
+
+            request.onsuccess =
+                function(event) {
+
+                    const db =
+                        event.target.result;
+
+                    resolve(db);
+
+                };
+
+
+            /* =========================
+               DATABASE ERROR
+               ========================= */
+
+            request.onerror =
+                function(event) {
+
+                    console.error(
+                        "IndexedDB open error:",
+                        event.target.error
+                    );
+
+                    reject(
+                        event.target.error
+                    );
+
+                };
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   LOAD DASHBOARD DOCUMENTS
+   ========================================================= */
+
+async function loadDashboardDocuments() {
+
+    const tableBody =
+        document.getElementById(
+            "recentDocumentsBody"
+        );
+
+
+    const totalDocuments =
+        document.getElementById(
+            "totalDocuments"
+        );
+
+
+    if (!tableBody) {
+
+        console.error(
+            "recentDocumentsBody not found"
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const db =
+            await openDatabase();
+
+
+        const transaction =
+            db.transaction(
+                DOCUMENT_STORE,
+                "readonly"
+            );
+
+
+        const store =
+            transaction.objectStore(
+                DOCUMENT_STORE
+            );
+
+
+        const request =
+            store.getAll();
+
+
+        request.onsuccess =
+            function(event) {
+
+                let documents =
+                    event.target.result || [];
+
+
+                /*
+                   DEBUG
+                   Browser console mein
+                   actual saved documents dikhayega.
+                */
+
+                console.log(
+                    "Secure DMS - All Documents:",
+                    documents
+                );
+
+
+                console.log(
+                    "Secure DMS - Logged User:",
+                    loggedInUser
+                );
+
+
+                /* =====================================
+                   USER-WISE DOCUMENT FILTER
+                   ===================================== */
+
+                documents =
+                    documents.filter(
+                        function(doc) {
+
+                            /*
+                               NEW UPLOAD RECORD
+                               uploadedByUsername available
+                            */
+
+                            if (
+                                doc.uploadedByUsername !==
+                                undefined &&
+                                doc.uploadedByUsername !==
+                                null &&
+                                doc.uploadedByUsername !== ""
+                            ) {
+
+                                return (
+                                    String(
+                                        doc.uploadedByUsername
+                                    ).toLowerCase()
+                                    ===
+                                    String(
+                                        currentUsername
+                                    ).toLowerCase()
+                                );
+
+                            }
+
+
+                            /*
+                               OLD RECORD COMPATIBILITY
+
+                               Agar old document mein
+                               username nahi hai,
+                               uploadedBy name se match karo.
+                            */
+
+                            return (
+                                String(
+                                    doc.uploadedBy || ""
+                                ).toLowerCase()
+                                ===
+                                String(
+                                    currentName
+                                ).toLowerCase()
+                            );
+
+                        }
+                    );
+
+
+                console.log(
+                    "Secure DMS - Current User Documents:",
+                    documents
+                );
+
+
+                /* =====================================
+                   SORT NEWEST FIRST
+                   ===================================== */
+
+                documents.sort(
+                    function(a, b) {
+
+                        return (
+                            new Date(
+                                b.uploadDate || 0
+                            )
+                            -
+                            new Date(
+                                a.uploadDate || 0
+                            )
+                        );
+
+                    }
+                );
+
+
+                /* =====================================
+                   TOTAL DOCUMENTS
+                   ===================================== */
+
+                if (totalDocuments) {
+
+                    totalDocuments.textContent =
+                        documents.length;
+
+                }
+
+
+                /* =====================================
+                   NO DOCUMENTS
+                   ===================================== */
+
+                if (documents.length === 0) {
+
+                    tableBody.innerHTML = `
+
+                        <tr>
+
+                            <td colspan="4"
+                                style="
+                                    text-align:center;
+                                    padding:30px;
+                                ">
+
+                                <div style="
+                                    font-size:30px;
+                                ">
+                                    📁
+                                </div>
+
+
+                                <div style="
+                                    margin-top:8px;
+                                    font-weight:600;
+                                ">
+                                    No documents uploaded yet
+                                </div>
+
+
+                                <div style="
+                                    margin-top:5px;
+                                    opacity:.7;
+                                ">
+                                    Upload a document to see it here.
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                /* =====================================
+                   SHOW LATEST 5
+                   ===================================== */
+
+                const recentDocuments =
+                    documents.slice(
+                        0,
+                        5
+                    );
+
+
+                tableBody.innerHTML = "";
+
+
+                recentDocuments.forEach(
+                    function(doc) {
+
+                        const row =
+                            document.createElement(
+                                "tr"
+                            );
+
+
+                        /* =========================
+                           FILE NAME
+                           ========================= */
+
+                        const fileName =
+                            doc.fileName ||
+                            doc.title ||
+                            "Document";
+
+
+                        const extension =
+                            fileName
+                                .split(".")
+                                .pop()
+                                .toLowerCase();
+
+
+                        let fileClass =
+                            "doc";
+
+                        let fileLabel =
+                            "DOC";
+
+
+                        if (
+                            extension === "pdf"
+                        ) {
+
+                            fileClass =
+                                "pdf";
+
+                            fileLabel =
+                                "PDF";
+
+                        }
+                        else if (
+                            extension === "jpg" ||
+                            extension === "jpeg" ||
+                            extension === "png"
+                        ) {
+
+                            fileClass =
+                                "image";
+
+                            fileLabel =
+                                "IMG";
+
+                        }
+                        else if (
+                            extension === "doc" ||
+                            extension === "docx"
+                        ) {
+
+                            fileClass =
+                                "doc";
+
+                            fileLabel =
+                                "DOC";
+
+                        }
+
+
+                        /* =========================
+                           DOCUMENT CELL
+                           ========================= */
+
+                        const documentCell =
+                            document.createElement(
+                                "td"
+                            );
+
+
+                        documentCell.innerHTML = `
+
+                            <div class="document-name">
+
+                                <span class="file-icon ${fileClass}">
+                                    ${fileLabel}
+                                </span>
+
+
+                                <div>
+
+                                    <strong>
+                                        ${escapeHTML(
+                                            fileName
+                                        )}
+                                    </strong>
+
+
+                                    <small>
+                                        ${escapeHTML(
+                                            doc.title ||
+                                            "Secure Document"
+                                        )}
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+
+                        /* =========================
+                           UPLOADED BY
+                           ========================= */
+
+                        const uploadedByCell =
+                            document.createElement(
+                                "td"
+                            );
+
+
+                        uploadedByCell.textContent =
+                            doc.uploadedBy ||
+                            currentName;
+
+
+                        /* =========================
+                           TYPE
+                           ========================= */
+
+                        const typeCell =
+                            document.createElement(
+                                "td"
+                            );
+
+
+                        typeCell.textContent =
+                            doc.category ||
+                            getFileType(fileName);
+
+
+                        /* =========================
+                           STATUS
+                           ========================= */
+
+                        const statusCell =
+                            document.createElement(
+                                "td"
+                            );
+
+
+                        statusCell.innerHTML = `
+
+                            <span class="badge success">
+                                Protected
+                            </span>
+
+                        `;
+
+
+                        /* =========================
+                           ADD CELLS TO ROW
+                           ========================= */
+
+                        row.appendChild(
+                            documentCell
+                        );
+
+
+                        row.appendChild(
+                            uploadedByCell
+                        );
+
+
+                        row.appendChild(
+                            typeCell
+                        );
+
+
+                        row.appendChild(
+                            statusCell
+                        );
+
+
+                        tableBody.appendChild(
+                            row
+                        );
+
+                    }
+                );
+
+            };
+
+
+        /* =====================================
+           REQUEST ERROR
+           ===================================== */
+
+        request.onerror =
+            function(event) {
+
+                console.error(
+                    "Unable to read documents:",
+                    event.target.error
+                );
+
+
+                tableBody.innerHTML = `
+
+                    <tr>
+
+                        <td colspan="4"
+                            style="
+                                text-align:center;
+                                padding:30px;
+                                color:#c00;
+                            ">
+
+                            Unable to load documents.
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            };
+
+    }
+    catch (error) {
+
+        console.error(
+            "Dashboard database error:",
+            error
+        );
+
+
+        tableBody.innerHTML = `
+
+            <tr>
+
+                <td colspan="4"
+                    style="
+                        text-align:center;
+                        padding:30px;
+                        color:#c00;
+                    ">
+
+                    Unable to connect to document storage.
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   FILE TYPE
+   ========================================================= */
+
+function getFileType(fileName) {
+
+    const extension =
+        String(fileName)
+            .split(".")
+            .pop()
+            .toLowerCase();
+
+
+    if (extension === "pdf") {
+        return "PDF";
+    }
+
+
+    if (
+        extension === "jpg" ||
+        extension === "jpeg" ||
+        extension === "png"
+    ) {
+        return "Image";
+    }
+
+
+    if (
+        extension === "doc" ||
+        extension === "docx"
+    ) {
+        return "Document";
+    }
+
+
+    return "Other";
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function escapeHTML(value) {
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+function logout() {
+
+    sessionStorage.removeItem(
+        "loggedInUser"
+    );
+
+    sessionStorage.removeItem(
+        "username"
+    );
+
+    sessionStorage.removeItem(
+        "loggedInName"
+    );
+
+    sessionStorage.removeItem(
+        "loggedInRole"
+    );
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* =========================================================
+   PAGE SHOW LOGIN CHECK
+   ========================================================= */
+
+window.addEventListener(
+    "pageshow",
+    function() {
+
+        const user =
+            sessionStorage.getItem(
+                "loggedInUser"
+            );
+
+
+        if (!user) {
+
+            window.location.href =
+                "login.html";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   LOAD DOCUMENTS
+   ========================================================= */
+
+if (loggedInUser) {
+
+    loadDashboardDocuments();
+
+}
+
+</script>
+
+
+</body>
+</html>

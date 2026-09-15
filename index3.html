@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Secure DMS - Upload Document</title>
+
+    <link
+        rel="stylesheet"
+        href="style3.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= TOP NAVBAR ================= -->
+
+    <header class="topbar">
+
+        <div class="brand-section">
+
+            <div class="logo">
+                🛡️
+            </div>
+
+            <div class="brand-name">
+                Secure DMS
+            </div>
+
+            <div class="mvp-badge">
+                SIH 26190 · MVP
+            </div>
+
+        </div>
+
+
+        <div class="top-right">
+
+            <div class="logged-user">
+
+                <div
+                    class="user-avatar"
+                    id="userAvatar"
+                >
+                    U
+                </div>
+
+                <div class="user-details">
+
+                    <strong id="topUserName">
+                        User
+                    </strong>
+
+                    <span id="topUserRole">
+                        User
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= LAYOUT ================= -->
+
+    <div class="layout">
+
+
+        <!-- ================= SIDEBAR ================= -->
+
+        <aside class="sidebar">
+
+
+            <nav>
+
+
+                <!-- DASHBOARD -->
+
+                <a
+                    href="index1.html"
+                    class="nav-item"
+                >
+
+                    <span class="icon">
+                        🏠
+                    </span>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </a>
+
+
+
+                <!-- DOCUMENTS -->
+
+                <a
+                    href="index2.html"
+                    class="nav-item"
+                >
+
+                    <span class="icon">
+                        📄
+                    </span>
+
+                    <span>
+                        Documents
+                    </span>
+
+                </a>
+
+
+
+                <!-- UPLOAD -->
+
+                <a
+                    href="index3.html"
+                    class="nav-item active"
+                >
+
+                    <span class="icon">
+                        ⬆️
+                    </span>
+
+                    <span>
+                        Upload Document
+                    </span>
+
+                </a>
+
+
+
+                <!-- ACCESS LOGS -->
+
+                <a
+                    href="index5.html"
+                    class="nav-item"
+                >
+
+                    <span class="icon">
+                        🔐
+                    </span>
+
+                    <span>
+                        Access Logs
+                    </span>
+
+                </a>
+
+
+            </nav>
+
+
+
+            <!-- SIDEBAR BOTTOM -->
+
+            <div class="sidebar-bottom">
+
+
+                <div class="sidebar-note">
+
+                    <strong>
+                        Secure DMS
+                    </strong>
+
+                    <br>
+
+                    Your uploaded documents are stored
+                    privately for your account.
+
+                </div>
+
+
+                <button
+                    class="logout-sidebar"
+                    onclick="logout()"
+                >
+
+                    <span>
+                        🚪
+                    </span>
+
+                    Logout
+
+                </button>
+
+            </div>
+
+
+        </aside>
+
+
+
+        <!-- ================= MAIN CONTENT ================= -->
+
+        <main class="content">
+
+
+            <!-- PAGE TITLE -->
+
+            <div class="page-title">
+
+                <h1>
+                    Upload Document
+                </h1>
+
+                <p>
+                    Upload and securely store your document
+                    in your private document library.
+                </p>
+
+            </div>
+
+
+
+            <!-- ================= UPLOAD CARD ================= -->
+
+            <div class="upload-card">
+
+
+                <!-- ================= DROP AREA ================= -->
+
+                <div
+                    class="drop-area"
+                    id="dropArea"
+                >
+
+
+                    <div class="folder-icon">
+                        📁
+                    </div>
+
+
+                    <h2>
+                        Drag &amp; drop your document
+                    </h2>
+
+
+                    <p>
+                        Supported formats:
+                        PDF, DOC, DOCX, JPG, JPEG, PNG
+                    </p>
+
+
+                    <label
+                        for="fileInput"
+                        class="choose-file"
+                    >
+                        Choose File
+                    </label>
+
+
+                    <input
+                        type="file"
+                        id="fileInput"
+                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                    >
+
+
+                    <span
+                        id="fileName"
+                        class="file-name"
+                    >
+                        No file chosen
+                    </span>
+
+
+                </div>
+
+
+
+                <!-- ================= FORM ================= -->
+
+                <form
+                    id="uploadForm"
+                    onsubmit="handleUpload(event)"
+                >
+
+
+                    <!-- DOCUMENT TITLE -->
+
+                    <div class="form-row">
+
+                        <label for="documentTitle">
+                            Document title
+                        </label>
+
+                        <input
+                            type="text"
+                            id="documentTitle"
+                            placeholder="e.g. Witness Statement 04"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- CATEGORY -->
+
+                    <div class="form-row">
+
+                        <label for="category">
+                            Category
+                        </label>
+
+                        <select
+                            id="category"
+                            required
+                        >
+
+                            <option value="FIR">
+                                FIR
+                            </option>
+
+                            <option value="Investigation">
+                                Investigation
+                            </option>
+
+                            <option value="Evidence">
+                                Evidence
+                            </option>
+
+                            <option value="Court">
+                                Court
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- ACCESS LEVEL -->
+
+                    <div class="form-row">
+
+                        <label for="accessLevel">
+                            Access level
+                        </label>
+
+                        <select
+                            id="accessLevel"
+                            required
+                        >
+
+                            <option value="Restricted">
+                                Restricted
+                            </option>
+
+                            <option value="Internal">
+                                Internal
+                            </option>
+
+                            <option value="Legal Team">
+                                Legal Team
+                            </option>
+
+                            <option value="Public">
+                                Public
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- UPLOAD BUTTON -->
+
+                    <button
+                        type="submit"
+                        class="encrypt-btn"
+                    >
+
+                        🔒 &nbsp;
+                        Encrypt &amp; Upload
+
+                    </button>
+
+
+                </form>
+
+
+            </div>
+
+
+        </main>
+
+
+    </div>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="upload.js"></script>
+
+
+</body>
+
+</html>

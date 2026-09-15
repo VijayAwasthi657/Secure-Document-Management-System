@@ -1,0 +1,332 @@
+/* =========================================
+   SECURE DMS - LOGIN PAGE
+   Professional SIH MVP Design
+   ========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f4f7fb;
+    color: #1e293b;
+}
+
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 15px;
+    background:
+        radial-gradient(circle at top left, #dbeafe 0, transparent 35%),
+        radial-gradient(circle at bottom right, #e0e7ff 0, transparent 35%),
+        #f4f7fb;
+}
+
+/* =========================================
+   LOGIN CARD
+   ========================================= */
+
+.login-card {
+    width: 100%;
+    max-width: 460px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 38px 38px 28px;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.10);
+}
+
+/* =========================================
+   LOGO / BRAND
+   ========================================= */
+
+.logo-box {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #ffffff;
+    font-size: 30px;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+}
+
+.brand {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.brand h1 {
+    font-size: 27px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 7px;
+    letter-spacing: -0.5px;
+}
+
+.brand p {
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+/* =========================================
+   FORM
+   ========================================= */
+
+.login-form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.input-box {
+    position: relative;
+    width: 100%;
+}
+
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 17px;
+    pointer-events: none;
+}
+
+.input-box input {
+    width: 100%;
+    height: 48px;
+    padding: 0 45px 0 45px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    outline: none;
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 15px;
+    transition: 0.2s ease;
+}
+
+.input-box input::placeholder {
+    color: #94a3b8;
+}
+
+.input-box input:hover {
+    border-color: #94a3b8;
+}
+
+.input-box input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+/* =========================================
+   PASSWORD TOGGLE
+   ========================================= */
+
+.password-toggle {
+    position: absolute;
+    right: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: #64748b;
+    cursor: pointer;
+    font-size: 17px;
+    padding: 5px;
+    transition: 0.2s ease;
+}
+
+.password-toggle:hover {
+    color: #2563eb;
+}
+
+/* =========================================
+   ERROR MESSAGE
+   ========================================= */
+
+.login-error {
+    display: none;
+    margin-bottom: 17px;
+    padding: 11px 13px;
+    border-radius: 8px;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* =========================================
+   LOGIN BUTTON
+   ========================================= */
+
+.login-button {
+    width: 100%;
+    height: 49px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.20);
+}
+
+.login-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 24px rgba(37, 99, 235, 0.25);
+}
+
+.login-button:active {
+    transform: translateY(0);
+}
+
+.login-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* =========================================
+   DEMO LOGIN INFORMATION
+   ========================================= */
+
+.demo-box {
+    margin-top: 25px;
+    padding: 16px;
+    border-radius: 11px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+
+.demo-title {
+    margin-bottom: 12px;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.demo-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 0;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 12px;
+}
+
+.demo-row:last-child {
+    border-bottom: none;
+}
+
+.demo-row span:first-child {
+    color: #64748b;
+}
+
+.demo-row span:last-child {
+    color: #0f172a;
+    font-weight: 600;
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+.login-footer {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 18px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.login-footer p {
+    font-size: 12px;
+    color: #94a3b8;
+    line-height: 1.6;
+}
+
+.login-footer strong {
+    color: #64748b;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+   ========================================= */
+
+@media (max-width: 520px) {
+
+    .login-page {
+        padding: 20px 12px;
+    }
+
+    .login-card {
+        padding: 30px 22px 24px;
+        border-radius: 15px;
+    }
+
+    .logo {
+        width: 58px;
+        height: 58px;
+        font-size: 26px;
+    }
+
+    .brand h1 {
+        font-size: 23px;
+    }
+
+    .brand p {
+        font-size: 13px;
+    }
+
+    .input-box input {
+        height: 46px;
+        font-size: 14px;
+    }
+
+    .login-button {
+        height: 47px;
+    }
+}
+
+@media (max-width: 360px) {
+
+    .login-card {
+        padding: 25px 17px 20px;
+    }
+
+    .brand h1 {
+        font-size: 21px;
+    }
+
+    .demo-row {
+        font-size: 11px;
+    }
+}

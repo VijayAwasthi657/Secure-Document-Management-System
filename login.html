@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Secure DMS - Login</title>
+
+    <link rel="stylesheet"
+          href="login.css">
+
+</head>
+
+
+<body>
+
+
+<div class="login-page">
+
+
+    <div class="login-card">
+
+
+        <!-- =========================
+             LOGO
+        ========================== -->
+
+        <div class="logo-box">
+
+            <div class="logo">
+                🔐
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             BRAND
+        ========================== -->
+
+        <div class="brand">
+
+            <h1>
+                Secure DMS
+            </h1>
+
+            <p>
+                Secure Document Management System
+            </p>
+
+        </div>
+
+
+        <!-- =========================
+             LOGIN FORM
+        ========================== -->
+
+        <form id="loginForm"
+              class="login-form">
+
+
+            <!-- =====================
+                 USERNAME
+            ====================== -->
+
+            <div class="form-group">
+
+                <label for="username">
+                    Username
+                </label>
+
+
+                <div class="input-box">
+
+                    <span class="input-icon">
+                        👤
+                    </span>
+
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter your username"
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================
+                 PASSWORD
+            ====================== -->
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+
+                <div class="input-box">
+
+                    <span class="input-icon">
+                        🔒
+                    </span>
+
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        id="passwordToggle"
+                        aria-label="Show password"
+                    >
+                        👁
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================
+                 ERROR MESSAGE
+            ====================== -->
+
+            <div
+                id="loginError"
+                class="login-error"
+                role="alert"
+            >
+                Invalid username or password.
+            </div>
+
+
+            <!-- =====================
+                 LOGIN BUTTON
+            ====================== -->
+
+            <button
+                type="submit"
+                class="login-button"
+                id="loginButton"
+            >
+                Login
+            </button>
+
+
+        </form>
+
+
+        <!-- =========================
+             FOOTER
+        ========================== -->
+
+        <div class="login-footer">
+
+            <p>
+                Secure DMS • SIH 26190 • MVP
+            </p>
+
+            <p>
+                Authorized access only
+            </p>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   SECURE DMS LOGIN SYSTEM
+===================================================== */
+
+
+/* =====================================================
+   USER DATABASE
+===================================================== */
+
+/*
+    Username and password are used for login.
+
+    name = REAL USER NAME
+
+    role = user's role
+
+    This information will be saved in sessionStorage
+    after successful login.
+*/
+
+const users = {
+
+
+    /* =========================
+       KRISHNA
+    ========================== */
+
+    krishna: {
+
+        username: "krishna",
+
+        password: "54321",
+
+        name: "Krishna",
+
+        role: "admin"
+
+    },
+
+
+    /* =========================
+       TANMAY
+    ========================== */
+
+    tanmay: {
+
+        username: "tanmay",
+
+        password: "12345",
+
+        name: "Tanmay Mishra",
+
+        role: "forensic_team"
+
+    },
+
+
+    /* =========================
+       VIJAY
+    ========================== */
+
+    vijay: {
+
+        username: "vijay",
+
+        password: "98760",
+
+        name: "Vijay Awasthi",
+
+        role: "police_staff"
+
+    },
+
+
+    /* =========================
+       SEJAL
+    ========================== */
+
+    sejal: {
+
+        username: "sejal",
+
+        password: "67890",
+
+        name: "Sejal Singh",
+
+        role: "investigator"
+
+    }
+
+};
+
+
+
+/* =====================================================
+   GET HTML ELEMENTS
+===================================================== */
+
+const loginForm =
+    document.getElementById("loginForm");
+
+
+const usernameInput =
+    document.getElementById("username");
+
+
+const passwordInput =
+    document.getElementById("password");
+
+
+const passwordToggle =
+    document.getElementById("passwordToggle");
+
+
+const loginError =
+    document.getElementById("loginError");
+
+
+const loginButton =
+    document.getElementById("loginButton");
+
+
+
+/* =====================================================
+   HIDE ERROR INITIALLY
+===================================================== */
+
+loginError.style.display = "none";
+
+
+
+/* =====================================================
+   SHOW / HIDE PASSWORD
+===================================================== */
+
+passwordToggle.addEventListener(
+    "click",
+    function () {
+
+
+        /* Password hidden */
+
+        if (passwordInput.type === "password") {
+
+
+            passwordInput.type = "text";
+
+
+            passwordToggle.textContent =
+                "🙈";
+
+
+            passwordToggle.setAttribute(
+                "aria-label",
+                "Hide password"
+            );
+
+
+        }
+
+
+        /* Password visible */
+
+        else {
+
+
+            passwordInput.type =
+                "password";
+
+
+            passwordToggle.textContent =
+                "👁";
+
+
+            passwordToggle.setAttribute(
+                "aria-label",
+                "Show password"
+            );
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   LOGIN FORM
+===================================================== */
+
+loginForm.addEventListener(
+    "submit",
+    function (event) {
+
+
+        /*
+            Stop page refresh
+        */
+
+        event.preventDefault();
+
+
+
+        /* Get username */
+
+        const username =
+            usernameInput.value
+                .trim()
+                .toLowerCase();
+
+
+
+        /* Get password */
+
+        const password =
+            passwordInput.value;
+
+
+
+        /* Hide old error */
+
+        loginError.style.display =
+            "none";
+
+
+
+        /* =================================================
+           CHECK USERNAME
+        ================================================= */
+
+        if (!users[username]) {
+
+
+            showLoginError(
+                "Invalid username or password."
+            );
+
+
+            return;
+
+        }
+
+
+
+        /* =================================================
+           CHECK PASSWORD
+        ================================================= */
+
+        if (
+            users[username].password !==
+            password
+        ) {
+
+
+            showLoginError(
+                "Invalid username or password."
+            );
+
+
+            return;
+
+        }
+
+
+
+        /* =================================================
+           LOGIN SUCCESS
+        ================================================= */
+
+        const user =
+            users[username];
+
+
+
+        /*
+            IMPORTANT
+
+            Save COMPLETE user object.
+
+            Dashboard and upload page will use this
+            information to show the REAL NAME.
+        */
+
+        sessionStorage.setItem(
+            "loggedInUser",
+            JSON.stringify(user)
+        );
+
+
+
+        /*
+            Save username separately.
+
+            This is useful for document ownership.
+        */
+
+        sessionStorage.setItem(
+            "username",
+            user.username
+        );
+
+
+
+        /*
+            Save real name separately too.
+        */
+
+        sessionStorage.setItem(
+            "loggedInName",
+            user.name
+        );
+
+
+
+        /*
+            Save role separately.
+        */
+
+        sessionStorage.setItem(
+            "loggedInRole",
+            user.role
+        );
+
+
+
+        /* =================================================
+           BUTTON LOADING
+        ================================================= */
+
+        loginButton.disabled =
+            true;
+
+
+        loginButton.textContent =
+            "Signing in...";
+
+
+
+        /* =================================================
+           OPEN DASHBOARD
+        ================================================= */
+
+        setTimeout(
+            function () {
+
+
+                /*
+                    Directly open dashboard.
+
+                    No "Login Successful" page.
+                */
+
+                window.location.href =
+                    "index.html";
+
+
+            },
+            300
+        );
+
+    }
+);
+
+
+
+/* =====================================================
+   SHOW LOGIN ERROR
+===================================================== */
+
+function showLoginError(message) {
+
+
+    loginError.textContent =
+        message;
+
+
+    loginError.style.display =
+        "block";
+
+
+    passwordInput.value =
+        "";
+
+
+    passwordInput.focus();
+
+}
+
+
+
+/* =====================================================
+   CLEAR ERROR WHEN USER TYPES
+===================================================== */
+
+usernameInput.addEventListener(
+    "input",
+    function () {
+
+        loginError.style.display =
+            "none";
+
+    }
+);
+
+
+passwordInput.addEventListener(
+    "input",
+    function () {
+
+        loginError.style.display =
+            "none";
+
+    }
+);
+
+
+
+/* =====================================================
+   ENTER KEY SUPPORT
+===================================================== */
+
+passwordInput.addEventListener(
+    "keydown",
+    function (event) {
+
+
+        if (event.key === "Enter") {
+
+            loginForm.requestSubmit();
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   PAGE SHOW
+===================================================== */
+
+window.addEventListener(
+    "pageshow",
+    function () {
+
+        /*
+            Login page remains available.
+
+            User can login with another account.
+        */
+
+        loginButton.disabled =
+            false;
+
+        loginButton.textContent =
+            "Login";
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

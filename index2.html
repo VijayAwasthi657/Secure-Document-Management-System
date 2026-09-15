@@ -1,0 +1,2575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Secure DMS - Document Library</title>
+
+    <link rel="stylesheet" href="style2.css">
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- =========================================
+         TOP NAVBAR
+    ========================================= -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="logo">
+                🛡️
+            </div>
+
+            <span>
+                Secure DMS
+            </span>
+
+            <span class="mvp-badge">
+                SIH 26190 · MVP
+            </span>
+
+        </div>
+
+
+        <div class="top-actions">
+
+            <div class="logged-user">
+
+                <div
+                    class="user-avatar-small"
+                    id="userAvatar"
+                >
+                    U
+                </div>
+
+                <div class="logged-user-info">
+
+                    <strong id="topUserName">
+                        User
+                    </strong>
+
+                    <span id="topUserRole">
+                        User
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================================
+         MAIN CONTAINER
+    ========================================= -->
+
+    <div class="main-container">
+
+
+        <!-- =====================================
+             SIDEBAR
+        ===================================== -->
+
+        <aside class="sidebar">
+
+            <nav>
+
+
+                <a
+                    href="index1.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        🏠
+                    </span>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </a>
+
+
+
+                <a
+                    href="index2.html"
+                    class="nav-item active"
+                >
+
+                    <span class="nav-icon">
+                        📄
+                    </span>
+
+                    <span>
+                        Documents
+                    </span>
+
+                </a>
+
+
+
+                <a
+                    href="index3.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        ⬆️
+                    </span>
+
+                    <span>
+                        Upload Document
+                    </span>
+
+                </a>
+
+
+
+                <a
+                    href="index5.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        🔐
+                    </span>
+
+                    <span>
+                        Access Logs
+                    </span>
+
+                </a>
+
+            </nav>
+
+
+
+            <!-- SIDEBAR NOTE -->
+
+            <div class="sidebar-note">
+
+                <strong>
+                    Secure DMS
+                </strong>
+
+                <br><br>
+
+                Your documents are stored
+                securely in this MVP.
+
+                <br><br>
+
+                Users can only manage their
+                own uploaded documents.
+
+            </div>
+
+
+
+            <!-- LOGOUT -->
+
+            <div class="sidebar-bottom">
+
+                <button
+                    class="logout-btn sidebar-logout"
+                    onclick="logout()"
+                >
+
+                    🚪 Logout
+
+                </button>
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- =====================================
+             MAIN CONTENT
+        ===================================== -->
+
+        <main class="content">
+
+
+            <!-- PAGE HEADING -->
+
+            <div class="page-heading">
+
+                <h1>
+                    Document Library
+                </h1>
+
+                <p>
+                    Search, view, download and manage
+                    your secure documents.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================
+                 DOCUMENT CARD
+            ================================= -->
+
+            <section class="document-card">
+
+
+                <!-- TOOLBAR -->
+
+                <div class="toolbar">
+
+
+                    <!-- SEARCH -->
+
+                    <div class="search-box">
+
+                        <span>
+                            🔍
+                        </span>
+
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Search by filename or type..."
+                            onkeyup="searchDocuments()"
+                        >
+
+                    </div>
+
+
+
+                    <!-- UPLOAD -->
+
+                    <button
+                        class="upload-btn"
+                        onclick="openUpload()"
+                    >
+
+                        + Upload
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- =================================
+                     DOCUMENT TABLE
+                ================================= -->
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Document
+                                </th>
+
+                                <th>
+                                    Type
+                                </th>
+
+                                <th>
+                                    Uploaded By
+                                </th>
+
+                                <th>
+                                    Access
+                                </th>
+
+                                <th>
+                                    Security
+                                </th>
+
+                                <th>
+                                    Action
+                                </th>
+
+                                <th>
+                                    Delete
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="documentTable">
+
+                            <tr>
+
+                                <td colspan="7">
+                                    Loading documents...
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =========================================
+     UPLOAD MODAL
+========================================= -->
+
+<div
+    class="modal-overlay"
+    id="uploadModal"
+>
+
+    <div class="modal">
+
+
+        <button
+            class="close-btn"
+            onclick="closeUpload()"
+        >
+            ×
+        </button>
+
+
+        <h2>
+            Upload Document
+        </h2>
+
+
+        <p>
+            Select a document to upload.
+        </p>
+
+
+
+        <div class="upload-area">
+
+            <div class="upload-icon">
+                ☁️
+            </div>
+
+
+            <input
+                type="file"
+                id="fileInput"
+                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                onchange="showSelectedFile()"
+            >
+
+
+            <label for="fileInput">
+                Choose File
+            </label>
+
+
+            <div id="selectedFile">
+            </div>
+
+        </div>
+
+
+
+        <button
+            class="modal-upload"
+            onclick="uploadFile()"
+        >
+
+            Upload Document
+
+        </button>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     DOCUMENT VIEW MODAL
+========================================= -->
+
+<div
+    class="modal-overlay"
+    id="documentModal"
+>
+
+    <div class="modal document-view-modal">
+
+
+        <button
+            class="close-btn"
+            onclick="closeDocument()"
+        >
+            ×
+        </button>
+
+
+        <div class="document-view-icon">
+            📄
+        </div>
+
+
+        <h2 id="viewDocumentName">
+            Document
+        </h2>
+
+
+        <p id="viewDocumentInfo">
+            Secure document preview
+        </p>
+
+
+        <div
+            class="document-preview"
+            id="documentPreview"
+        >
+
+            <div class="preview-lock">
+                🔒
+            </div>
+
+            <strong>
+                Secure Document
+            </strong>
+
+            <span>
+                Loading document...
+            </span>
+
+        </div>
+
+
+
+        <div class="document-actions">
+
+            <button
+                class="modal-upload"
+                id="downloadButton"
+                onclick="downloadCurrentDocument()"
+            >
+                ⬇️ Download
+            </button>
+
+
+            <button
+                class="modal-close-button"
+                onclick="closeDocument()"
+            >
+                Close
+            </button>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+/* =========================================
+   DATABASE SETTINGS
+========================================= */
+
+const DB_NAME = "SecureDMS";
+
+const DB_VERSION = 2;
+
+const DOCUMENT_STORE = "documents";
+
+const LOG_STORE = "accessLogs";
+
+const LOG_RETENTION_DAYS = 30;
+
+
+
+/* =========================================
+   CURRENT USER
+========================================= */
+
+const loggedInUser =
+    JSON.parse(
+        sessionStorage.getItem("loggedInUser")
+    );
+
+
+/* =========================================
+   SESSION CHECK
+========================================= */
+
+if (!loggedInUser) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+
+/* =========================================
+   ROLE DISPLAY
+========================================= */
+
+const roleNames = {
+
+    admin: "Administrator",
+
+    forensic_team: "Forensic Team",
+
+    police_staff: "Police Staff",
+
+    investigator: "Investigator"
+
+};
+
+
+
+/* =========================================
+   SHOW LOGGED-IN USER
+========================================= */
+
+if (loggedInUser) {
+
+    const userName =
+        loggedInUser.name ||
+        loggedInUser.username ||
+        "User";
+
+
+    document.getElementById(
+        "topUserName"
+    ).textContent =
+        userName;
+
+
+    document.getElementById(
+        "userAvatar"
+    ).textContent =
+        userName
+            .charAt(0)
+            .toUpperCase();
+
+
+    document.getElementById(
+        "topUserRole"
+    ).textContent =
+        roleNames[
+            loggedInUser.role
+        ]
+        ||
+        loggedInUser.role
+        ||
+        "User";
+
+}
+
+
+
+/* =========================================
+   OPEN INDEXEDDB
+========================================= */
+
+function openDatabase() {
+
+    return new Promise(
+        function(resolve, reject) {
+
+            const request =
+                indexedDB.open(
+                    DB_NAME,
+                    DB_VERSION
+                );
+
+
+            request.onupgradeneeded =
+                function(event) {
+
+                    const db =
+                        event.target.result;
+
+
+
+                    /* DOCUMENT STORE */
+
+                    if (
+                        !db.objectStoreNames.contains(
+                            DOCUMENT_STORE
+                        )
+                    ) {
+
+                        const documentStore =
+                            db.createObjectStore(
+                                DOCUMENT_STORE,
+                                {
+                                    keyPath: "id",
+                                    autoIncrement: true
+                                }
+                            );
+
+
+                        documentStore.createIndex(
+                            "uploadedByUsername",
+                            "uploadedByUsername",
+                            {
+                                unique: false
+                            }
+                        );
+
+
+                        documentStore.createIndex(
+                            "uploadedBy",
+                            "uploadedBy",
+                            {
+                                unique: false
+                            }
+                        );
+
+
+                        documentStore.createIndex(
+                            "uploadDate",
+                            "uploadDate",
+                            {
+                                unique: false
+                            }
+                        );
+
+
+                        documentStore.createIndex(
+                            "category",
+                            "category",
+                            {
+                                unique: false
+                            }
+                        );
+
+                    }
+
+
+
+                    /* ACCESS LOG STORE */
+
+                    if (
+                        !db.objectStoreNames.contains(
+                            LOG_STORE
+                        )
+                    ) {
+
+                        const logStore =
+                            db.createObjectStore(
+                                LOG_STORE,
+                                {
+                                    keyPath: "id",
+                                    autoIncrement: true
+                                }
+                            );
+
+
+                        logStore.createIndex(
+                            "username",
+                            "username",
+                            {
+                                unique: false
+                            }
+                        );
+
+
+                        logStore.createIndex(
+                            "time",
+                            "time",
+                            {
+                                unique: false
+                            }
+                        );
+
+
+                        logStore.createIndex(
+                            "expiresAt",
+                            "expiresAt",
+                            {
+                                unique: false
+                            }
+                        );
+
+                    }
+
+                };
+
+
+
+            request.onsuccess =
+                function() {
+
+                    resolve(
+                        request.result
+                    );
+
+                };
+
+
+
+            request.onerror =
+                function() {
+
+                    reject(
+                        request.error
+                    );
+
+                };
+
+        }
+    );
+
+}
+
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(value) {
+
+    return String(value || "")
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+
+/* =========================================
+   CLEANUP EXPIRED LOGS
+========================================= */
+
+async function cleanupExpiredLogs() {
+
+    try {
+
+        const db =
+            await openDatabase();
+
+
+        const transaction =
+            db.transaction(
+                LOG_STORE,
+                "readwrite"
+            );
+
+
+        const store =
+            transaction.objectStore(
+                LOG_STORE
+            );
+
+
+        const request =
+            store.getAll();
+
+
+        request.onsuccess =
+            function() {
+
+                const logs =
+                    request.result || [];
+
+
+                const now =
+                    Date.now();
+
+
+                logs.forEach(
+                    function(log) {
+
+                        if (
+                            log.expiresAt
+                            &&
+                            new Date(
+                                log.expiresAt
+                            ).getTime()
+                            <=
+                            now
+                        ) {
+
+                            store.delete(
+                                log.id
+                            );
+
+                        }
+
+                    }
+                );
+
+            };
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Log cleanup error:",
+            error
+        );
+
+    }
+
+}
+
+
+
+/* =========================================
+   CREATE ACCESS LOG
+========================================= */
+
+function createAccessLog(
+    action,
+    documentName,
+    documentId
+) {
+
+    return new Promise(
+        function(resolve, reject) {
+
+            openDatabase()
+                .then(
+                    function(db) {
+
+                        const transaction =
+                            db.transaction(
+                                LOG_STORE,
+                                "readwrite"
+                            );
+
+
+                        const store =
+                            transaction.objectStore(
+                                LOG_STORE
+                            );
+
+
+                        const now =
+                            new Date();
+
+
+                        const expiresAt =
+                            new Date(
+                                now.getTime()
+                                +
+                                (
+                                    LOG_RETENTION_DAYS
+                                    *
+                                    24
+                                    *
+                                    60
+                                    *
+                                    60
+                                    *
+                                    1000
+                                )
+                            );
+
+
+                        const log = {
+
+                            username:
+                                loggedInUser.username,
+
+                            userName:
+                                loggedInUser.name
+                                ||
+                                loggedInUser.username,
+
+                            role:
+                                loggedInUser.role,
+
+                            action:
+                                action,
+
+                            document:
+                                documentName
+                                ||
+                                "System",
+
+                            documentId:
+                                documentId
+                                ||
+                                null,
+
+                            time:
+                                now.toISOString(),
+
+                            expiresAt:
+                                expiresAt.toISOString()
+
+                        };
+
+
+                        store.add(log);
+
+
+                        transaction.oncomplete =
+                            function() {
+
+                                resolve();
+
+                            };
+
+
+                        transaction.onerror =
+                            function() {
+
+                                reject(
+                                    transaction.error
+                                );
+
+                            };
+
+                    }
+                )
+
+                .catch(
+                    reject
+                );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================
+   LOAD DOCUMENTS
+========================================= */
+
+async function loadDocuments() {
+
+    try {
+
+        await cleanupExpiredLogs();
+
+
+        const db =
+            await openDatabase();
+
+
+        const transaction =
+            db.transaction(
+                DOCUMENT_STORE,
+                "readonly"
+            );
+
+
+        const store =
+            transaction.objectStore(
+                DOCUMENT_STORE
+            );
+
+
+        const request =
+            store.getAll();
+
+
+        request.onsuccess =
+            function() {
+
+                const allDocuments =
+                    request.result || [];
+
+
+                /*
+                 * IMPORTANT:
+                 *
+                 * Only documents belonging
+                 * to current user are shown.
+                 */
+
+                const myDocuments =
+                    allDocuments
+                    .filter(
+                        function(document) {
+
+                            return (
+                                document.uploadedByUsername
+                                ===
+                                loggedInUser.username
+                            );
+
+                        }
+                    )
+                    .sort(
+                        function(a, b) {
+
+                            return (
+                                new Date(
+                                    b.uploadDate
+                                )
+                                -
+                                new Date(
+                                    a.uploadDate
+                                )
+                            );
+
+                        }
+                    );
+
+
+                renderDocuments(
+                    myDocuments
+                );
+
+            };
+
+
+        request.onerror =
+            function() {
+
+                console.error(
+                    "Unable to load documents:",
+                    request.error
+                );
+
+
+                document.getElementById(
+                    "documentTable"
+                ).innerHTML = `
+
+                    <tr>
+
+                        <td colspan="7">
+
+                            Unable to load documents.
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            };
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Document loading error:",
+            error
+        );
+
+    }
+
+}
+
+
+
+/* =========================================
+   RENDER DOCUMENTS
+========================================= */
+
+function renderDocuments(
+    documents
+) {
+
+    const table =
+        document.getElementById(
+            "documentTable"
+        );
+
+
+    if (
+        documents.length === 0
+    ) {
+
+        table.innerHTML = `
+
+            <tr>
+
+                <td colspan="7">
+
+                    <div class="empty-state">
+
+                        <div style="font-size:32px;">
+                            📂
+                        </div>
+
+                        <strong>
+                            No documents found
+                        </strong>
+
+                        <span>
+                            Upload your first document
+                            to see it here.
+                        </span>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+
+    table.innerHTML =
+        documents
+        .map(
+            function(document) {
+
+                const fileName =
+                    document.fileName
+                    ||
+                    "Document";
+
+
+                const category =
+                    document.category
+                    ||
+                    "Other";
+
+
+                const uploadedBy =
+                    document.uploadedBy
+                    ||
+                    document.uploadedByUsername
+                    ||
+                    "User";
+
+
+                const access =
+                    document.accessLevel
+                    ||
+                    "Restricted";
+
+
+                const uploadDate =
+                    document.uploadDate
+                    ?
+                    new Date(
+                        document.uploadDate
+                    ).toLocaleDateString(
+                        "en-IN"
+                    )
+                    :
+                    "-";
+
+
+                let accessClass =
+                    "restricted";
+
+
+                if (
+                    access === "Internal"
+                ) {
+
+                    accessClass =
+                        "internal";
+
+                }
+
+                else if (
+                    access === "Legal Team"
+                ) {
+
+                    accessClass =
+                        "legal";
+
+                }
+
+                else if (
+                    access === "Public"
+                ) {
+
+                    accessClass =
+                        "public";
+
+                }
+
+
+
+                return `
+
+                    <tr
+                        data-document-id="${document.id}"
+                        data-file-name="${escapeHTML(fileName)}"
+                    >
+
+                        <td>
+
+                            <div class="document-name">
+
+                                ${escapeHTML(fileName)}
+
+                            </div>
+
+                            <div class="date">
+
+                                ${uploadDate}
+
+                            </div>
+
+                        </td>
+
+
+
+                        <td>
+
+                            ${escapeHTML(category)}
+
+                        </td>
+
+
+
+                        <td>
+
+                            ${escapeHTML(uploadedBy)}
+
+                        </td>
+
+
+
+                        <td>
+
+                            <span
+                                class="access ${accessClass}"
+                            >
+
+                                ${escapeHTML(access)}
+
+                            </span>
+
+                        </td>
+
+
+
+                        <td>
+
+                            <span class="security">
+
+                                🔒 Encrypted
+
+                            </span>
+
+                        </td>
+
+
+
+                        <td>
+
+                            <button
+                                class="view-btn"
+                                onclick="viewDocument(${document.id})"
+                            >
+
+                                View
+
+                            </button>
+
+                        </td>
+
+
+
+                        <td>
+
+                            <button
+                                class="delete-button"
+                                onclick="deleteDocument(${document.id})"
+                            >
+
+                                Delete
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+
+/* =========================================
+   UPLOAD MODAL
+========================================= */
+
+function openUpload() {
+
+    const modal =
+        document.getElementById(
+            "uploadModal"
+        );
+
+
+    modal.classList.add(
+        "show"
+    );
+
+}
+
+
+
+function closeUpload() {
+
+    const modal =
+        document.getElementById(
+            "uploadModal"
+        );
+
+
+    modal.classList.remove(
+        "show"
+    );
+
+}
+
+
+
+/* =========================================
+   SHOW SELECTED FILE
+========================================= */
+
+function showSelectedFile() {
+
+    const input =
+        document.getElementById(
+            "fileInput"
+        );
+
+
+    const selected =
+        document.getElementById(
+            "selectedFile"
+        );
+
+
+    if (
+        input.files
+        &&
+        input.files.length > 0
+    ) {
+
+        const file =
+            input.files[0];
+
+
+        selected.textContent =
+            "Selected: " +
+            file.name;
+
+    }
+
+    else {
+
+        selected.textContent =
+            "";
+
+    }
+
+}
+
+
+
+/* =========================================
+   UPLOAD FILE
+========================================= */
+
+async function uploadFile() {
+
+    const input =
+        document.getElementById(
+            "fileInput"
+        );
+
+
+    if (
+        !input.files
+        ||
+        input.files.length === 0
+    ) {
+
+        alert(
+            "Please choose a document first."
+        );
+
+        return;
+
+    }
+
+
+    const file =
+        input.files[0];
+
+
+    /* Maximum 50 MB */
+
+    if (
+        file.size >
+        50 * 1024 * 1024
+    ) {
+
+        alert(
+            "File size must be less than 50 MB."
+        );
+
+        return;
+
+    }
+
+
+    /* Allowed extensions */
+
+    const extension =
+        file.name
+            .split(".")
+            .pop()
+            .toLowerCase();
+
+
+    const allowedExtensions = [
+        "pdf",
+        "doc",
+        "docx",
+        "jpg",
+        "jpeg",
+        "png"
+    ];
+
+
+    if (
+        !allowedExtensions.includes(
+            extension
+        )
+    ) {
+
+        alert(
+            "Only PDF, DOC, DOCX, JPG, JPEG and PNG files are allowed."
+        );
+
+        return;
+
+    }
+
+
+
+    try {
+
+        const db =
+            await openDatabase();
+
+
+        const transaction =
+            db.transaction(
+                [
+                    DOCUMENT_STORE,
+                    LOG_STORE
+                ],
+                "readwrite"
+            );
+
+
+        const documentStore =
+            transaction.objectStore(
+                DOCUMENT_STORE
+            );
+
+
+        const logStore =
+            transaction.objectStore(
+                LOG_STORE
+            );
+
+
+        const now =
+            new Date();
+
+
+        const expiresAt =
+            new Date(
+                now.getTime()
+                +
+                (
+                    LOG_RETENTION_DAYS
+                    *
+                    24
+                    *
+                    60
+                    *
+                    60
+                    *
+                    1000
+                )
+            );
+
+
+        const documentData = {
+
+            title:
+                file.name,
+
+            fileName:
+                file.name,
+
+            fileType:
+                file.type
+                ||
+                extension,
+
+            fileSize:
+                file.size,
+
+            file:
+                file,
+
+            category:
+                detectCategory(
+                    extension
+                ),
+
+            accessLevel:
+                "Restricted",
+
+            uploadedBy:
+                loggedInUser.name
+                ||
+                loggedInUser.username,
+
+            uploadedByUsername:
+                loggedInUser.username,
+
+            role:
+                loggedInUser.role,
+
+            uploadDate:
+                now.toISOString()
+
+        };
+
+
+        const addRequest =
+            documentStore.add(
+                documentData
+            );
+
+
+        addRequest.onsuccess =
+            function(event) {
+
+                const documentId =
+                    event.target.result;
+
+
+                /*
+                 * Upload log
+                 */
+
+                logStore.add({
+
+                    username:
+                        loggedInUser.username,
+
+                    userName:
+                        loggedInUser.name
+                        ||
+                        loggedInUser.username,
+
+                    role:
+                        loggedInUser.role,
+
+                    action:
+                        "Uploaded",
+
+                    document:
+                        file.name,
+
+                    documentId:
+                        documentId,
+
+                    time:
+                        now.toISOString(),
+
+                    expiresAt:
+                        expiresAt.toISOString()
+
+                });
+
+            };
+
+
+        transaction.oncomplete =
+            function() {
+
+                alert(
+                    "Document uploaded successfully."
+                );
+
+
+                closeUpload();
+
+
+                input.value =
+                    "";
+
+
+                document.getElementById(
+                    "selectedFile"
+                ).textContent =
+                    "";
+
+
+                loadDocuments();
+
+            };
+
+
+        transaction.onerror =
+            function() {
+
+                console.error(
+                    transaction.error
+                );
+
+
+                alert(
+                    "Document upload failed."
+                );
+
+            };
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Upload error:",
+            error
+        );
+
+
+        alert(
+            "Unable to upload document."
+        );
+
+    }
+
+}
+
+
+
+/* =========================================
+   AUTO CATEGORY
+========================================= */
+
+function detectCategory(
+    extension
+) {
+
+    if (
+        extension === "pdf"
+    ) {
+
+        return "Document";
+
+    }
+
+
+    if (
+        extension === "jpg"
+        ||
+        extension === "jpeg"
+        ||
+        extension === "png"
+    ) {
+
+        return "Evidence";
+
+    }
+
+
+    if (
+        extension === "doc"
+        ||
+        extension === "docx"
+    ) {
+
+        return "Investigation";
+
+    }
+
+
+    return "Other";
+
+}
+
+
+
+/* =========================================
+   VIEW DOCUMENT
+========================================= */
+
+async function viewDocument(
+    documentId
+) {
+
+    try {
+
+        const db =
+            await openDatabase();
+
+
+        const transaction =
+            db.transaction(
+                DOCUMENT_STORE,
+                "readonly"
+            );
+
+
+        const store =
+            transaction.objectStore(
+                DOCUMENT_STORE
+            );
+
+
+        const request =
+            store.get(
+                Number(documentId)
+            );
+
+
+        request.onsuccess =
+            async function() {
+
+                const document =
+                    request.result;
+
+
+                if (!document) {
+
+                    alert(
+                        "Document not found."
+                    );
+
+                    return;
+
+                }
+
+
+
+                /*
+                 * SECURITY CHECK
+                 *
+                 * User can only open
+                 * own document.
+                 */
+
+                if (
+                    document.uploadedByUsername
+                    !==
+                    loggedInUser.username
+                ) {
+
+                    alert(
+                        "Access denied. You cannot access another user's document."
+                    );
+
+                    return;
+
+                }
+
+
+
+                const modal =
+                    document.getElementById(
+                        "documentModal"
+                    );
+
+
+                const nameElement =
+                    document.getElementById(
+                        "viewDocumentName"
+                    );
+
+
+                const infoElement =
+                    document.getElementById(
+                        "viewDocumentInfo"
+                    );
+
+
+                const preview =
+                    document.getElementById(
+                        "documentPreview"
+                    );
+
+
+                nameElement.textContent =
+                    document.fileName;
+
+
+                infoElement.textContent =
+                    "Secure access • Encrypted document";
+
+
+                preview.innerHTML = `
+
+                    <div class="preview-lock">
+                        🔒
+                    </div>
+
+                    <strong>
+                        ${escapeHTML(document.fileName)}
+                    </strong>
+
+                    <span>
+                        Secure document preview
+                    </span>
+
+                `;
+
+
+                modal.classList.add(
+                    "show"
+                );
+
+
+
+                /*
+                 * Store current document
+                 */
+
+                window.currentDocument =
+                    document;
+
+
+
+                /*
+                 * Create actual preview
+                 */
+
+                if (
+                    document.file
+                ) {
+
+                    const blob =
+                        document.file;
+
+
+                    const url =
+                        URL.createObjectURL(
+                            blob
+                        );
+
+
+                    const type =
+                        document.fileType
+                        ||
+                        blob.type
+                        ||
+                        "";
+
+
+                    if (
+                        type ===
+                        "application/pdf"
+                    ) {
+
+                        preview.innerHTML = `
+
+                            <iframe
+                                src="${url}"
+                                style="
+                                    width:100%;
+                                    height:430px;
+                                    border:none;
+                                    border-radius:10px;
+                                "
+                            ></iframe>
+
+                        `;
+
+                    }
+
+                    else if (
+                        type.startsWith(
+                            "image/"
+                        )
+                    ) {
+
+                        preview.innerHTML = `
+
+                            <img
+                                src="${url}"
+                                alt="Document Preview"
+                                style="
+                                    max-width:100%;
+                                    max-height:430px;
+                                    border-radius:10px;
+                                    object-fit:contain;
+                                "
+                            >
+
+                        `;
+
+                    }
+
+                    else {
+
+                        preview.innerHTML = `
+
+                            <div class="preview-lock">
+                                📄
+                            </div>
+
+                            <strong>
+                                ${escapeHTML(document.fileName)}
+                            </strong>
+
+                            <span>
+                                Preview is not available for this file type.
+                                You can download the document securely.
+                            </span>
+
+                        `;
+
+                    }
+
+                }
+
+
+
+                /*
+                 * VIEW LOG
+                 */
+
+                await createAccessLog(
+                    "Viewed",
+                    document.fileName,
+                    document.id
+                );
+
+            };
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "View error:",
+            error
+        );
+
+
+        alert(
+            "Unable to open document."
+        );
+
+    }
+
+}
+
+
+
+/* =========================================
+   DOWNLOAD DOCUMENT
+========================================= */
+
+async function downloadCurrentDocument() {
+
+    const document =
+        window.currentDocument;
+
+
+    if (!document) {
+
+        alert(
+            "No document selected."
+        );
+
+        return;
+
+    }
+
+
+
+    /*
+     * SECURITY CHECK
+     */
+
+    if (
+        document.uploadedByUsername
+        !==
+        loggedInUser.username
+    ) {
+
+        alert(
+            "Access denied."
+        );
+
+        return;
+
+    }
+
+
+
+    if (!document.file) {
+
+        alert(
+            "File data is unavailable."
+        );
+
+        return;
+
+    }
+
+
+
+    const url =
+        URL.createObjectURL(
+            document.file
+        );
+
+
+    const link =
+        document.createElement(
+            "a"
+        );
+
+
+    link.href =
+        url;
+
+
+    link.download =
+        document.fileName;
+
+
+    document.body.appendChild(
+        link
+    );
+
+
+    link.click();
+
+
+    link.remove();
+
+
+    setTimeout(
+        function() {
+
+            URL.revokeObjectURL(
+                url
+            );
+
+        },
+        1000
+    );
+
+
+
+    /*
+     * DOWNLOAD LOG
+     */
+
+    await createAccessLog(
+        "Downloaded",
+        document.fileName,
+        document.id
+    );
+
+}
+
+
+
+/* =========================================
+   CLOSE DOCUMENT
+========================================= */
+
+function closeDocument() {
+
+    const modal =
+        document.getElementById(
+            "documentModal"
+        );
+
+
+    modal.classList.remove(
+        "show"
+    );
+
+
+    window.currentDocument =
+        null;
+
+}
+
+
+
+/* =========================================
+   DELETE DOCUMENT
+========================================= */
+
+async function deleteDocument(
+    documentId
+) {
+
+    try {
+
+        const db =
+            await openDatabase();
+
+
+        /*
+         * First get document
+         */
+
+        const readTransaction =
+            db.transaction(
+                DOCUMENT_STORE,
+                "readonly"
+            );
+
+
+        const store =
+            readTransaction.objectStore(
+                DOCUMENT_STORE
+            );
+
+
+        const request =
+            store.get(
+                Number(documentId)
+            );
+
+
+        request.onsuccess =
+            async function() {
+
+                const document =
+                    request.result;
+
+
+                if (!document) {
+
+                    alert(
+                        "Document not found."
+                    );
+
+                    return;
+
+                }
+
+
+
+                /*
+                 * SECURITY CHECK
+                 *
+                 * User cannot delete
+                 * another user's document.
+                 */
+
+                if (
+                    document.uploadedByUsername
+                    !==
+                    loggedInUser.username
+                ) {
+
+                    alert(
+                        "Access denied. You cannot delete another user's document."
+                    );
+
+                    return;
+
+                }
+
+
+
+                const confirmed =
+                    confirm(
+                        "Are you sure you want to delete " +
+                        document.fileName +
+                        "?"
+                    );
+
+
+                if (!confirmed) {
+
+                    return;
+
+                }
+
+
+
+                /*
+                 * DELETE DOCUMENT
+                 * + CREATE DELETE LOG
+                 * IN SAME TRANSACTION
+                 */
+
+                const deleteTransaction =
+                    db.transaction(
+                        [
+                            DOCUMENT_STORE,
+                            LOG_STORE
+                        ],
+                        "readwrite"
+                    );
+
+
+                const documentStore =
+                    deleteTransaction.objectStore(
+                        DOCUMENT_STORE
+                    );
+
+
+                const logStore =
+                    deleteTransaction.objectStore(
+                        LOG_STORE
+                    );
+
+
+                const now =
+                    new Date();
+
+
+                const expiresAt =
+                    new Date(
+                        now.getTime()
+                        +
+                        (
+                            LOG_RETENTION_DAYS
+                            *
+                            24
+                            *
+                            60
+                            *
+                            60
+                            *
+                            1000
+                        )
+                    );
+
+
+
+                /*
+                 * Create DELETE log
+                 */
+
+                logStore.add({
+
+                    username:
+                        loggedInUser.username,
+
+                    userName:
+                        loggedInUser.name
+                        ||
+                        loggedInUser.username,
+
+                    role:
+                        loggedInUser.role,
+
+                    action:
+                        "Deleted",
+
+                    document:
+                        document.fileName,
+
+                    documentId:
+                        document.id,
+
+                    time:
+                        now.toISOString(),
+
+                    expiresAt:
+                        expiresAt.toISOString()
+
+                });
+
+
+
+                /*
+                 * Delete actual document
+                 */
+
+                documentStore.delete(
+                    Number(documentId)
+                );
+
+
+
+                deleteTransaction.oncomplete =
+                    function() {
+
+                        alert(
+                            document.fileName +
+                            " deleted successfully."
+                        );
+
+
+                        loadDocuments();
+
+                    };
+
+
+                deleteTransaction.onerror =
+                    function() {
+
+                        console.error(
+                            deleteTransaction.error
+                        );
+
+
+                        alert(
+                            "Unable to delete document."
+                        );
+
+                    };
+
+            };
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Delete error:",
+            error
+        );
+
+
+        alert(
+            "Unable to delete document."
+        );
+
+    }
+
+}
+
+
+
+/* =========================================
+   SEARCH DOCUMENTS
+========================================= */
+
+function searchDocuments() {
+
+    const input =
+        document.getElementById(
+            "searchInput"
+        );
+
+
+    const searchValue =
+        input.value
+            .toLowerCase()
+            .trim();
+
+
+    const rows =
+        document.querySelectorAll(
+            "#documentTable tr"
+        );
+
+
+    rows.forEach(
+        function(row) {
+
+            const rowText =
+                row.innerText
+                    .toLowerCase();
+
+
+            if (
+                rowText.includes(
+                    searchValue
+                )
+            ) {
+
+                row.style.display =
+                    "";
+
+            }
+
+            else {
+
+                row.style.display =
+                    "none";
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+function logout() {
+
+    sessionStorage.clear();
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+
+/* =========================================
+   CLOSE MODAL OUTSIDE
+========================================= */
+
+window.addEventListener(
+    "click",
+    function(event) {
+
+        const uploadModal =
+            document.getElementById(
+                "uploadModal"
+            );
+
+
+        const documentModal =
+            document.getElementById(
+                "documentModal"
+            );
+
+
+        if (
+            event.target ===
+            uploadModal
+        ) {
+
+            closeUpload();
+
+        }
+
+
+        if (
+            event.target ===
+            documentModal
+        ) {
+
+            closeDocument();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================
+   ESC KEY
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeUpload();
+
+            closeDocument();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================
+   PAGE START
+========================================= */
+
+loadDocuments();
+
+</script>
+
+
+</body>
+
+</html>
